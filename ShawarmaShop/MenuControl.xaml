@@ -12,6 +12,7 @@
                     <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
+            
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                 <Button Content="Add" Width="80" Margin="5"/>
                 <Button Content="Edit" Width="80" Margin="5"/>

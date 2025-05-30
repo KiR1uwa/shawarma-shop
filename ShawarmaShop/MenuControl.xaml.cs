@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace ShawarmaShop
 {
-    /// <summary>
-    /// Interaction logic for MenuControl.xaml
-    /// </summary>
     public partial class MenuControl : UserControl
     {
         public MenuControl()

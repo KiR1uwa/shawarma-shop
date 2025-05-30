@@ -1,4 +1,9 @@
-﻿public class Shawarma
+﻿using OrderItem_.Models;
+using Order_.Models;
+using Client_.Models;
+
+namespace Shawarma_.Models;
+public class Shawarma
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

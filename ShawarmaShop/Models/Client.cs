@@ -1,4 +1,10 @@
-﻿public class Client
+﻿using OrderItem_.Models;
+using Order_.Models;
+using Shawarma_.Models;
+
+namespace Client_.Models;
+
+public class Client
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

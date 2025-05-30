@@ -1,4 +1,8 @@
-﻿
+﻿using Shawarma_.Models;
+using Order_.Models;
+
+namespace OrderItem_.Models;
+
 public class OrderItem
 {
     public int Id { get; set; }

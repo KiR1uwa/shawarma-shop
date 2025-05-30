@@ -5,18 +5,23 @@
     <Grid Margin="10">
         <StackPanel>
             <TextBlock Text="Shawarma Menu" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
-            <DataGrid x:Name="MenuDataGrid" AutoGenerateColumns="False" Height="400" Margin="0,0,0,10">
+            <DataGrid x:Name="MenuDataGrid" AutoGenerateColumns="False" Height="400" Margin="0,0,0,10"
+                      SelectionMode="Single" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="100"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
+                    <DataGridTextColumn Header="Ingredients" Binding="{Binding Ingredients}" Width="300"/>
+                    <DataGridTextColumn Header="Price ($)" Binding="{Binding Price, StringFormat=F2}" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                <Button Content="Add" Width="80" Margin="5"/>
-                <Button Content="Edit" Width="80" Margin="5"/>
-                <Button Content="Delete" Width="80" Margin="5"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="BtnAdd" Content="Add" Width="80" Margin="5" Click="BtnAdd_Click"
+                        Background="#27AE60" Foreground="White" FontWeight="Bold"/>
+                <Button x:Name="BtnEdit" Content="Edit" Width="80" Margin="5" Click="BtnEdit_Click"
+                        Background="#3498DB" Foreground="White" FontWeight="Bold"/>
+                <Button x:Name="BtnDelete" Content="Delete" Width="80" Margin="5" Click="BtnDelete_Click"
+                        Background="#E74C3C" Foreground="White" FontWeight="Bold"/>
             </StackPanel>
         </StackPanel>
     </Grid>

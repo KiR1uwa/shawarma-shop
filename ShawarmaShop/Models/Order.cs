@@ -5,4 +5,5 @@
     public string? Comment { get; set; }
     public int ClientID { get; set; }
 
+    public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 }

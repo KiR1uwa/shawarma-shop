@@ -3,20 +3,36 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ShawarmaShop
 {
-    //Start
     public partial class MainWindow : Window
     {
+        private MenuControl menuControl = new MenuControl();
+        private ClientsControl clientsControl = new ClientsControl();
+        private OrdersControl ordersControl = new OrdersControl();
+
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Content = menuControl;
+        }
+
+        private void BtnMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = menuControl;
+        }
+
+        private void BtnClients_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = clientsControl;
+        }
+
+        private void BtnOrders_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = ordersControl;
         }
     }
 }

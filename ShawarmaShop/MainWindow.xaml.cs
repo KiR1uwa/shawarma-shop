@@ -11,10 +11,7 @@ using System.Windows.Shapes;
 
 namespace ShawarmaShop
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// Test
+    //Start
     public partial class MainWindow : Window
     {
         public MainWindow()

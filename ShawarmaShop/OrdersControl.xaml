@@ -9,7 +9,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                     <DataGridTextColumn Header="Client" Binding="{Binding ClientName}" Width="*"/>
-                    <DataGridTextColumn Header="Date" Binding="{Binding OrderDate}" Width="150"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding OrderDate, StringFormat=yyyy-MM-dd HH:mm}" Width="150" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="200"/>
                 </DataGrid.Columns>
             </DataGrid>

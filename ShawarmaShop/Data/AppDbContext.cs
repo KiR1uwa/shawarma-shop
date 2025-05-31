@@ -19,7 +19,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Order>()
-            .HasOne<Client>()
+            .HasOne(o => o.Client)
             .WithMany(c => c.Orders)
             .HasForeignKey(o => o.ClientID);
 
@@ -58,9 +58,9 @@ public class AppDbContext : DbContext
         );
 
         modelBuilder.Entity<Order>().HasData(
-            new Order { Id = 1, DateTime = DateTime.Now.AddDays(-2), Comment = "Extra sauce please", ClientID = 1 },
-            new Order { Id = 2, DateTime = DateTime.Now.AddDays(-1), Comment = "No onions", ClientID = 2 },
-            new Order { Id = 3, DateTime = DateTime.Now, Comment = null, ClientID = 3 }
+            new Order { Id = 1, DateTime = new DateTime(2024, 05, 28, 12, 0, 0), Comment = "Extra sauce please", ClientID = 1 },
+            new Order { Id = 2, DateTime = new DateTime(2024, 05, 29, 14, 30, 0), Comment = "No onions", ClientID = 2 },
+            new Order { Id = 3, DateTime = new DateTime(2024, 05, 30, 16, 45, 0), Comment = null, ClientID = 3 }
         );
 
         modelBuilder.Entity<OrderItem>().HasData(
@@ -71,4 +71,5 @@ public class AppDbContext : DbContext
             new OrderItem { Id = 5, OrderId = 3, ShawarmaId = 5, Quantity = 1 }
         );
     }
+
 }

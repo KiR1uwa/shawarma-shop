@@ -30,6 +30,7 @@ namespace ShawarmaShop
             Title = "Create New Order";
             shawarmaItems = new ObservableCollection<ShawarmaItemViewModel>();
             InitializeData();
+            UpdateTotal();
         }
 
         public OrderWindow(Order existingOrder)
@@ -42,6 +43,7 @@ namespace ShawarmaShop
             shawarmaItems = new ObservableCollection<ShawarmaItemViewModel>();
             InitializeData();
             LoadOrderData();
+            UpdateTotal();
         }
 
         private async void InitializeData()

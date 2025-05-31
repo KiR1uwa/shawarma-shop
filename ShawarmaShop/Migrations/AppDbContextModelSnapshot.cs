@@ -50,9 +50,9 @@ namespace ShawarmaShop.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "",
+                            Email = "admin@example.com",
                             PasswordHash = "21232f297a57a5a743894a0e4a801fc3",
-                            Phone = "",
+                            Phone = "+48000000000",
                             Role = "admin",
                             Username = "admin"
                         });
@@ -184,7 +184,10 @@ namespace ShawarmaShop.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DeliveryAt")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -199,20 +202,23 @@ namespace ShawarmaShop.Migrations
                             Id = 1,
                             ClientID = 1,
                             Comment = "Extra sauce please",
-                            DateTime = new DateTime(2024, 5, 28, 12, 0, 0, 0, DateTimeKind.Unspecified)
+                            CreatedAt = new DateTime(2024, 5, 28, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeliveryAt = new DateTime(2024, 5, 28, 12, 30, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
                             ClientID = 2,
                             Comment = "No onions",
-                            DateTime = new DateTime(2024, 5, 29, 14, 30, 0, 0, DateTimeKind.Unspecified)
+                            CreatedAt = new DateTime(2024, 5, 29, 14, 30, 0, 0, DateTimeKind.Unspecified),
+                            DeliveryAt = new DateTime(2024, 5, 29, 15, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
                             ClientID = 3,
-                            DateTime = new DateTime(2024, 5, 30, 16, 45, 0, 0, DateTimeKind.Unspecified)
+                            CreatedAt = new DateTime(2024, 5, 30, 16, 45, 0, 0, DateTimeKind.Unspecified),
+                            DeliveryAt = new DateTime(2024, 5, 30, 17, 15, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

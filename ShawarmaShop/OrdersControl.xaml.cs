@@ -1,103 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
-using Client_.Models;
-using Order_.Models;
-using OrderItem_.Models;
 
-namespace ShawarmaShop;
-
-public partial class OrdersControl : UserControl
+namespace ShawarmaShop
 {
-    private readonly AppDbContext dbContext = new();
-
-    public OrdersControl()
+    public partial class OrdersControl : UserControl
     {
-        InitializeComponent();
-        LoadOrders();
-        Unloaded += (_, _) => dbContext.Dispose();
-    }
+        private readonly AppDbContext dbContext = new();
 
-    private async void LoadOrders()
-    {
-        var rows = await dbContext.Orders
-            .Include(o => o.Client)
-            .Select(o => new OrderRow
-            {
-                Id = o.Id,
-                ClientName = o.Client.Name,
-                OrderDate = o.DateTime,
-                Comment = o.Comment
-            })
-            .ToListAsync();
-
-        OrdersDataGrid.ItemsSource = rows;
-    }
-
-    private void BtnAdd_Click(object sender, RoutedEventArgs e)
-    {
-        var window = new OrderWindow();
-        if (window.ShowDialog() == true)
+        public OrdersControl()
+        {
+            InitializeComponent();
             LoadOrders();
-    }
-
-    private void BtnEdit_Click(object sender, RoutedEventArgs e)
-    {
-        if (OrdersDataGrid.SelectedItem is not OrderRow row)
-        {
-            MessageBox.Show("Please select an order to edit.", "No selection", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
+            Unloaded += OrdersControl_Unloaded;
         }
 
-        var order = dbContext.Orders
-            .Include(o => o.Items)
-            .FirstOrDefault(o => o.Id == row.Id);
-
-        if (order is null)
+        private async void LoadOrders()
         {
-            MessageBox.Show("Selected order not found in database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
+            var rows = await dbContext.Orders
+                .Include(o => o.Client)
+                .Include(o => o.Items)
+                    .ThenInclude(i => i.Shawarma)
+                .OrderByDescending(o => o.CreatedAt)
+                .Select(o => new OrderRow
+                {
+                    Id = o.Id,
+                    ClientName = o.Client.Name,
+                    CreatedAt = o.CreatedAt,
+                    DeliveryAt = o.DeliveryAt,
+                    ItemsSummary = string.Join(", ",
+                        o.Items.Select(i => $"{i.Shawarma.Name} x{i.Quantity}")),
+                    Comment = o.Comment
+                })
+                .ToListAsync();
+            OrdersDataGrid.ItemsSource = rows;
         }
 
-        var window = new OrderWindow(order);
-        if (window.ShowDialog() == true)
-            LoadOrders();
-    }
-
-    private async void BtnDelete_Click(object sender, RoutedEventArgs e)
-    {
-        if (OrdersDataGrid.SelectedItem is not OrderRow row)
+        private void OrdersControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Please select an order to delete.", "No selection", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
+            dbContext.Dispose();
         }
 
-        var result = MessageBox.Show($"Are you sure you want to delete order #{row.Id}?",
-            "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-        if (result != MessageBoxResult.Yes) return;
-
-        var order = await dbContext.Orders
-            .Include(o => o.Items)
-            .FirstOrDefaultAsync(o => o.Id == row.Id);
-
-        if (order is not null)
+        private sealed record OrderRow
         {
-            dbContext.OrderItems.RemoveRange(order.Items);
-            dbContext.Orders.Remove(order);
-            await dbContext.SaveChangesAsync();
-            LoadOrders();
+            public int Id { get; init; }
+            public string ClientName { get; init; } = "";
+            public DateTime CreatedAt { get; init; }
+            public DateTime DeliveryAt { get; init; }
+            public string ItemsSummary { get; init; } = "";
+            public string? Comment { get; init; }
         }
-    }
-
-    private sealed record OrderRow
-    {
-        public int Id { get; init; }
-        public string ClientName { get; init; } = "";
-        public DateTime OrderDate { get; init; }
-        public string? Comment { get; init; }
     }
 }

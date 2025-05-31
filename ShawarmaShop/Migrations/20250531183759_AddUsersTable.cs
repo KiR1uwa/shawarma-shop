@@ -66,7 +66,8 @@ namespace ShawarmaShop.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DeliveryAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Comment = table.Column<string>(type: "TEXT", nullable: true),
                     ClientID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -134,16 +135,16 @@ namespace ShawarmaShop.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "PasswordHash", "Phone", "Role", "Username" },
-                values: new object[] { 1, "", "21232f297a57a5a743894a0e4a801fc3", "", "admin", "admin" });
+                values: new object[] { 1, "admin@example.com", "21232f297a57a5a743894a0e4a801fc3", "+48000000000", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "ClientID", "Comment", "DateTime" },
+                columns: new[] { "Id", "ClientID", "Comment", "CreatedAt", "DeliveryAt" },
                 values: new object[,]
                 {
-                    { 1, 1, "Extra sauce please", new DateTime(2024, 5, 28, 12, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 2, "No onions", new DateTime(2024, 5, 29, 14, 30, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, 3, null, new DateTime(2024, 5, 30, 16, 45, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 1, "Extra sauce please", new DateTime(2024, 5, 28, 12, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 5, 28, 12, 30, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, 2, "No onions", new DateTime(2024, 5, 29, 14, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 5, 29, 15, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, 3, null, new DateTime(2024, 5, 30, 16, 45, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 5, 30, 17, 15, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(

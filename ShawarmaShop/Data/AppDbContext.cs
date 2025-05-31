@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 using Shawarma_.Models;
 using Client_.Models;
 using Order_.Models;
 using OrderItem_.Models;
 using Authentication;
-using System.IO;
 
 public class AppDbContext : DbContext
 {
@@ -19,11 +20,6 @@ public class AppDbContext : DbContext
         string dbPath = Path.Combine(AppContext.BaseDirectory, "shawarma.db");
         optionsBuilder.UseSqlite($"Data Source={dbPath}");
     }
-    public AppDbContext()
-    {
-        Database.Migrate();
-    }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -67,9 +63,9 @@ public class AppDbContext : DbContext
         );
 
         modelBuilder.Entity<Order>().HasData(
-            new Order { Id = 1, DateTime = new DateTime(2024, 05, 28, 12, 0, 0), Comment = "Extra sauce please", ClientID = 1 },
-            new Order { Id = 2, DateTime = new DateTime(2024, 05, 29, 14, 30, 0), Comment = "No onions", ClientID = 2 },
-            new Order { Id = 3, DateTime = new DateTime(2024, 05, 30, 16, 45, 0), Comment = null, ClientID = 3 }
+            new Order { Id = 1, CreatedAt = new DateTime(2024, 5, 28, 12, 0, 0), DeliveryAt = new DateTime(2024, 5, 28, 12, 30, 0), Comment = "Extra sauce please", ClientID = 1 },
+            new Order { Id = 2, CreatedAt = new DateTime(2024, 5, 29, 14, 30, 0), DeliveryAt = new DateTime(2024, 5, 29, 15, 0, 0), Comment = "No onions", ClientID = 2 },
+            new Order { Id = 3, CreatedAt = new DateTime(2024, 5, 30, 16, 45, 0), DeliveryAt = new DateTime(2024, 5, 30, 17, 15, 0), Comment = null, ClientID = 3 }
         );
 
         modelBuilder.Entity<OrderItem>().HasData(
@@ -81,8 +77,7 @@ public class AppDbContext : DbContext
         );
 
         modelBuilder.Entity<User>().HasData(
-            new User
-            { Id = 1, Username = "admin", PasswordHash = "21232f297a57a5a743894a0e4a801fc3", Role = "admin" }
+            new User { Id = 1, Username = "admin", PasswordHash = "21232f297a57a5a743894a0e4a801fc3", Role = "admin", Phone = "+48000000000", Email = "admin@example.com" }
         );
     }
 }

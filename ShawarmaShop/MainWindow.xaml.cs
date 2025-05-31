@@ -1,18 +1,12 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace ShawarmaShop
 {
     public partial class MainWindow : Window
     {
-        private MenuControl menuControl = new MenuControl();
-        private ClientsControl clientsControl = new ClientsControl();
-        private OrdersControl ordersControl = new OrdersControl();
+        private readonly MenuControl menuControl = new();
+        private readonly ClientsControl clientsControl = new();
+        private readonly OrdersControl ordersControl = new();
 
         public MainWindow()
         {
@@ -20,19 +14,32 @@ namespace ShawarmaShop
             MainFrame.Content = menuControl;
         }
 
-        private void BtnMenu_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Content = menuControl;
-        }
+        private void BtnMenu_Click(object sender, RoutedEventArgs e) => MainFrame.Content = menuControl;
+        private void BtnClients_Click(object sender, RoutedEventArgs e) => MainFrame.Content = clientsControl;
+        private void BtnOrders_Click(object sender, RoutedEventArgs e) => MainFrame.Content = ordersControl;
 
-        private void BtnClients_Click(object sender, RoutedEventArgs e)
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = clientsControl;
-        }
+            var login = new LoginWindow { Owner = this };
 
-        private void BtnOrders_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Content = ordersControl;
+            Hide();                                    
+            bool? result = login.ShowDialog();         
+
+            if (result == true && login.LoggedInUser is not null)
+            {
+                var user = login.LoggedInUser;
+                Window next = user.Role == "admin"
+                    ? new MainWindow()
+                    : new UserPanelWindow(user);
+
+                Application.Current.MainWindow = next;
+                Close();                              
+                next.Show();                          
+            }
+            else
+            {
+                Application.Current.Shutdown();       
+            }
         }
     }
 }

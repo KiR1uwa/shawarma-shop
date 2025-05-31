@@ -1,278 +1,176 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Client_.Models;
 using Microsoft.EntityFrameworkCore;
 using Order_.Models;
-using Client_.Models;
-using Shawarma_.Models;
 using OrderItem_.Models;
+using Shawarma_.Models;
 
 namespace ShawarmaShop
 {
-    public partial class OrderWindow : Window
+    public partial class OrderWindow : Window, INotifyPropertyChanged
     {
-        private AppDbContext dbContext;
-        private Order order;
-        private bool isEditMode;
-        private ObservableCollection<ShawarmaItemViewModel> shawarmaItems;
+        private readonly AppDbContext dbContext = new();
+        private readonly bool isEditMode;
+        private readonly Order order;
+        private readonly ObservableCollection<ShawarmaItemViewModel> shawarmaItems = new();
 
         public OrderWindow()
         {
             InitializeComponent();
-            dbContext = new AppDbContext();
             order = new Order();
             isEditMode = false;
-            Title = "Create New Order";
-            shawarmaItems = new ObservableCollection<ShawarmaItemViewModel>();
-            InitializeData();
-            UpdateTotal();
+            Title = "Create order";
+            InitData();
         }
 
         public OrderWindow(Order existingOrder)
         {
             InitializeComponent();
-            dbContext = new AppDbContext();
-            order = existingOrder;
+            order = dbContext.Orders
+                             .Include(o => o.Items)
+                             .First(o => o.Id == existingOrder.Id);
             isEditMode = true;
-            Title = "Edit Order";
-            shawarmaItems = new ObservableCollection<ShawarmaItemViewModel>();
-            InitializeData();
-            LoadOrderData();
-            UpdateTotal();
+            Title = "Edit order";
+            InitData();
+            LoadOrder();
         }
 
-        private async void InitializeData()
+        private async void InitData()
         {
-            try
+            CmbClients.ItemsSource = await dbContext.Clients.ToListAsync();
+            var list = await dbContext.Shawarmas.ToListAsync();
+            foreach (var s in list)
             {
-                var clients = await dbContext.Clients.ToListAsync();
-                CmbClients.ItemsSource = clients;
-
-                var shawarmas = await dbContext.Shawarmas.ToListAsync();
-                foreach (var shawarma in shawarmas)
-                {
-                    var itemVM = new ShawarmaItemViewModel(shawarma);
-                    itemVM.PropertyChanged += ShawarmaItem_PropertyChanged;
-                    shawarmaItems.Add(itemVM);
-                }
-
-                ShawarmaItemsGrid.ItemsSource = shawarmaItems;
-                DpOrderDate.SelectedDate = DateTime.Now.Date;
-                TxtTime.Text = DateTime.Now.ToString("HH:mm");
+                var vm = new ShawarmaItemViewModel(s);
+                vm.PropertyChanged += (_, _) => RecalcTotal();
+                shawarmaItems.Add(vm);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            ShawarmaItemsGrid.ItemsSource = shawarmaItems;
+            DpDeliveryDate.SelectedDate = DateTime.Today;
+            TxtDeliveryTime.Text = DateTime.Now.ToString("HH:mm");
+            RecalcTotal();
         }
 
-        private void LoadOrderData()
+        private void LoadOrder()
         {
-            if (isEditMode && order != null)
+            CmbClients.SelectedValue = order.ClientID;
+            DpDeliveryDate.SelectedDate = order.DeliveryAt.Date;
+            TxtDeliveryTime.Text = order.DeliveryAt.ToString("HH:mm");
+            TxtComment.Text = order.Comment;
+            foreach (var it in order.Items)
             {
-                CmbClients.SelectedValue = order.ClientID;
-                DpOrderDate.SelectedDate = order.DateTime.Date;
-                TxtTime.Text = order.DateTime.ToString("HH:mm");
-                TxtComment.Text = order.Comment ?? "";
-
-                foreach (var orderItem in order.Items)
-                {
-                    var shawarmaVM = shawarmaItems.FirstOrDefault(s => s.Id == orderItem.ShawarmaId);
-                    if (shawarmaVM != null)
-                    {
-                        shawarmaVM.IsSelected = true;
-                        shawarmaVM.Quantity = orderItem.Quantity;
-                    }
-                }
+                var vm = shawarmaItems.First(x => x.Id == it.ShawarmaId);
+                vm.IsSelected = true;
+                vm.Quantity = it.Quantity;
             }
+            RecalcTotal();
         }
 
-        private void ShawarmaItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void RecalcTotal()
         {
-            if (e.PropertyName == nameof(ShawarmaItemViewModel.IsSelected) ||
-                e.PropertyName == nameof(ShawarmaItemViewModel.Quantity))
-            {
-                UpdateTotal();
-            }
-        }
-
-        private void UpdateTotal()
-        {
-            var total = shawarmaItems
-                .Where(s => s.IsSelected && s.Quantity > 0)
-                .Sum(s => s.Subtotal);
+            decimal total = shawarmaItems
+                .Where(x => x.IsSelected && x.Quantity > 0)
+                .Sum(x => x.Subtotal);
             TxtTotal.Text = total.ToString("F2");
         }
 
-        private async void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateInput())
+            if (!Validate()) return;
+
+            var time = TimeSpan.ParseExact(TxtDeliveryTime.Text, @"hh\:mm", CultureInfo.InvariantCulture);
+            DateTime delivery = DpDeliveryDate.SelectedDate!.Value.Date + time;
+
+            if (!isEditMode) order.CreatedAt = DateTime.Now;
+            order.DeliveryAt = delivery;
+            order.ClientID = ((Client)CmbClients.SelectedItem!).Id;
+            order.Comment = string.IsNullOrWhiteSpace(TxtComment.Text) ? null : TxtComment.Text.Trim();
+
+            dbContext.OrderItems.RemoveRange(order.Items);
+            order.Items.Clear();
+
+            foreach (var vm in shawarmaItems.Where(x => x.IsSelected && x.Quantity > 0))
             {
-                try
+                order.Items.Add(new OrderItem
                 {
-                    if (!DateTime.TryParseExact(TxtTime.Text, "HH:mm", CultureInfo.InvariantCulture,
-                        DateTimeStyles.None, out var time))
-                    {
-                        MessageBox.Show("Invalid time format. Please use HH:MM format.", "Validation Error",
-                            MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
-
-                    var orderDateTime = DpOrderDate.SelectedDate.Value.Date.Add(time.TimeOfDay);
-
-                    if (isEditMode)
-                    {
-                        order.ClientID = (int)CmbClients.SelectedValue;
-                        order.DateTime = orderDateTime;
-                        order.Comment = string.IsNullOrWhiteSpace(TxtComment.Text) ? null : TxtComment.Text.Trim();
-
-                        dbContext.OrderItems.RemoveRange(order.Items);
-                        order.Items.Clear();
-
-                        foreach (var item in shawarmaItems.Where(s => s.IsSelected && s.Quantity > 0))
-                        {
-                            order.Items.Add(new OrderItem
-                            {
-                                ShawarmaId = item.Id,
-                                Quantity = item.Quantity,
-                                OrderId = order.Id
-                            });
-                        }
-
-                        dbContext.Orders.Update(order);
-                    }
-                    else
-                    {
-                        order.ClientID = (int)CmbClients.SelectedValue;
-                        order.DateTime = orderDateTime;
-                        order.Comment = string.IsNullOrWhiteSpace(TxtComment.Text) ? null : TxtComment.Text.Trim();
-
-                        foreach (var item in shawarmaItems.Where(s => s.IsSelected && s.Quantity > 0))
-                        {
-                            order.Items.Add(new OrderItem
-                            {
-                                ShawarmaId = item.Id,
-                                Quantity = item.Quantity
-                            });
-                        }
-
-                        dbContext.Orders.Add(order);
-                    }
-
-                    await dbContext.SaveChangesAsync();
-                    DialogResult = true;
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error saving order: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    ShawarmaId = vm.Id,
+                    Quantity = vm.Quantity
+                });
             }
-        }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
+            if (isEditMode)
+                dbContext.Orders.Update(order);
+            else
+                dbContext.Orders.Add(order);
+
+            dbContext.SaveChanges();
+            DialogResult = true;
             Close();
         }
 
-        private bool ValidateInput()
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => Close();
+
+        private bool Validate()
         {
-            if (CmbClients.SelectedValue == null)
+            if (CmbClients.SelectedItem == null)
             {
-                MessageBox.Show("Please select a client.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                CmbClients.Focus();
-                return false;
+                MessageBox.Show("Select client"); return false;
             }
-
-            if (DpOrderDate.SelectedDate == null)
+            if (DpDeliveryDate.SelectedDate == null)
             {
-                MessageBox.Show("Please select a date.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                DpOrderDate.Focus();
-                return false;
+                MessageBox.Show("Select date"); return false;
             }
-
-            if (!DateTime.TryParseExact(TxtTime.Text, "HH:mm", CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out _))
+            if (!TimeSpan.TryParseExact(TxtDeliveryTime.Text, @"hh\:mm", CultureInfo.InvariantCulture, out _))
             {
-                MessageBox.Show("Please enter a valid time in HH:MM format.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                TxtTime.Focus();
-                return false;
+                MessageBox.Show("Time format HH:mm"); return false;
             }
-
-            if (!shawarmaItems.Any(s => s.IsSelected && s.Quantity > 0))
+            if (!shawarmaItems.Any(x => x.IsSelected && x.Quantity > 0))
             {
-                MessageBox.Show("Please select at least one shawarma item.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                MessageBox.Show("Select at least one item"); return false;
             }
-
             return true;
         }
 
-        protected override void OnClosed(EventArgs e)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string p = "") =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
+
+        public sealed class ShawarmaItemViewModel : INotifyPropertyChanged
         {
-            dbContext?.Dispose();
-            base.OnClosed(e);
-        }
-    }
+            public int Id { get; }
+            public string Name { get; }
+            public decimal Price { get; }
+            private bool isSelected;
+            private int quantity = 1;
 
-    public class ShawarmaItemViewModel : INotifyPropertyChanged
-    {
-        private bool isSelected;
-        private int quantity = 1;
-
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
-        public decimal Price { get; set; }
-
-        public bool IsSelected
-        {
-            get => isSelected;
-            set
+            public ShawarmaItemViewModel(Shawarma s)
             {
-                isSelected = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Subtotal));
+                Id = s.Id; Name = s.Name; Price = s.Price;
             }
-        }
 
-        public int Quantity
-        {
-            get => quantity;
-            set
+            public bool IsSelected
             {
-                if (value >= 0)
-                {
-                    quantity = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(Subtotal));
-                }
+                get => isSelected;
+                set { isSelected = value; OnPropertyChanged(); OnPropertyChanged(nameof(Subtotal)); }
             }
-        }
 
-        public decimal Subtotal => IsSelected ? Price * Quantity : 0;
+            public int Quantity
+            {
+                get => quantity;
+                set { if (value > 0) { quantity = value; OnPropertyChanged(); OnPropertyChanged(nameof(Subtotal)); } }
+            }
 
-        public ShawarmaItemViewModel(Shawarma shawarma)
-        {
-            Id = shawarma.Id;
-            Name = shawarma.Name;
-            Price = shawarma.Price;
-        }
+            public decimal Subtotal => IsSelected ? Price * Quantity : 0;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            public event PropertyChangedEventHandler? PropertyChanged;
+            private void OnPropertyChanged([CallerMemberName] string p = "") =>
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
         }
     }
 }

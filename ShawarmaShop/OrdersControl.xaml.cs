@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
@@ -37,35 +37,60 @@ public partial class OrdersControl : UserControl
         OrdersDataGrid.ItemsSource = rows;
     }
 
-    private void BtnAdd_Click(object sender, RoutedEventArgs e) => OpenOrderWindow(null);
+    private void BtnAdd_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new OrderWindow();
+        if (window.ShowDialog() == true)
+            LoadOrders();
+    }
 
     private void BtnEdit_Click(object sender, RoutedEventArgs e)
     {
-        if (OrdersDataGrid.SelectedItem is not OrderRow row) return;
+        if (OrdersDataGrid.SelectedItem is not OrderRow row)
+        {
+            MessageBox.Show("Please select an order to edit.", "No selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         var order = dbContext.Orders
             .Include(o => o.Items)
-            .First(o => o.Id == row.Id);
-        OpenOrderWindow(order);
+            .FirstOrDefault(o => o.Id == row.Id);
+
+        if (order is null)
+        {
+            MessageBox.Show("Selected order not found in database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        var window = new OrderWindow(order);
+        if (window.ShowDialog() == true)
+            LoadOrders();
     }
 
     private async void BtnDelete_Click(object sender, RoutedEventArgs e)
     {
-        if (OrdersDataGrid.SelectedItem is not OrderRow row) return;
+        if (OrdersDataGrid.SelectedItem is not OrderRow row)
+        {
+            MessageBox.Show("Please select an order to delete.", "No selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
-        if (MessageBox.Show($"Delete order #{row.Id}?",
-            "Confirm", MessageBoxButton.YesNo,
-            MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+        var result = MessageBox.Show($"Are you sure you want to delete order #{row.Id}?",
+            "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-        var order = await dbContext.Orders.FindAsync(row.Id);
-        dbContext.Orders.Remove(order);
-        await dbContext.SaveChangesAsync();
-        LoadOrders();
-    }
+        if (result != MessageBoxResult.Yes) return;
 
-    private void OpenOrderWindow(Order? order)
-    {
-        var wnd = order is null ? new OrderWindow() : new OrderWindow(order);
-        if (wnd.ShowDialog() == true) LoadOrders();
+        var order = await dbContext.Orders
+            .Include(o => o.Items)
+            .FirstOrDefaultAsync(o => o.Id == row.Id);
+
+        if (order is not null)
+        {
+            dbContext.OrderItems.RemoveRange(order.Items);
+            dbContext.Orders.Remove(order);
+            await dbContext.SaveChangesAsync();
+            LoadOrders();
+        }
     }
 
     private sealed record OrderRow

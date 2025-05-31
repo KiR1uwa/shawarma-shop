@@ -34,5 +34,6 @@
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
 
     </DockPanel>
+    
 
 </Window>

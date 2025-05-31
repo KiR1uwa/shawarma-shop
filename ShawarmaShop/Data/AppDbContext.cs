@@ -3,6 +3,7 @@ using Shawarma_.Models;
 using Client_.Models;
 using Order_.Models;
 using OrderItem_.Models;
+using Authentication;
 
 public class AppDbContext : DbContext
 {
@@ -10,6 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<Client> Clients { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -70,6 +72,10 @@ public class AppDbContext : DbContext
             new OrderItem { Id = 4, OrderId = 3, ShawarmaId = 4, Quantity = 3 },
             new OrderItem { Id = 5, OrderId = 3, ShawarmaId = 5, Quantity = 1 }
         );
-    }
 
+        modelBuilder.Entity<User>().HasData(
+            new User
+            { Id = 1, Username = "admin", PasswordHash = "21232f297a57a5a743894a0e4a801fc3", Role = "admin" }
+        );
+    }
 }

@@ -1,35 +1,54 @@
 ﻿using System.Windows;
 using Authentication;
 
-namespace ShawarmaShop
+namespace ShawarmaShop;
+
+public enum AppStartAction
 {
-    public partial class App : Application
+    Login,
+    Register
+}
+
+public partial class App : Application
+{
+    public static AppStartAction StartAction { get; set; } = AppStartAction.Login;
+
+    protected override void OnStartup(StartupEventArgs e)
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
+        base.OnStartup(e);
+        ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+        Window startWindow;
+
+        switch (StartAction)
         {
-            this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            case AppStartAction.Register:
+                startWindow = new RegisterWindow();
+                break;
 
-            var loginWindow = new LoginWindow();
-            bool? result = loginWindow.ShowDialog();
+            case AppStartAction.Login:
+            default:
+                var loginWindow = new LoginWindow();
+                var result = loginWindow.ShowDialog();
 
-            if (result == true && loginWindow.LoggedInUser is not null)
-            {
-                var user = loginWindow.LoggedInUser;
+                if (result == true && loginWindow.LoggedInUser is not null)
+                {
+                    var user = loginWindow.LoggedInUser;
 
-                Window nextWindow;
-
-                if (user.Role == "admin")
-                    nextWindow = new MainWindow();
+                    if (user.Role == "admin")
+                        startWindow = new MainWindow();
+                    else
+                        startWindow = new UserPanelWindow(user);
+                }
                 else
-                    nextWindow = new UserPanelWindow(user);
-
-                this.MainWindow = nextWindow;
-                nextWindow.Show();
-            }
-            else
-            {
-                Shutdown();
-            }
+                {
+                    Shutdown();
+                    return;
+                }
+                break;
         }
+
+        MainWindow = startWindow;
+        startWindow.Show();
     }
 }

@@ -6,6 +6,7 @@ namespace ShawarmaShop
 {
     public partial class LoginWindow : Window
     {
+
         private readonly AppDbContext dbContext = new();
 
         public User? LoggedInUser { get; private set; }
@@ -17,6 +18,8 @@ namespace ShawarmaShop
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
+            Application.Current.MainWindow = this;
+
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Password.Trim();
 
@@ -43,6 +46,13 @@ namespace ShawarmaShop
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+        private void BtnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            var reg = new RegisterWindow { Owner = this };
+            reg.ShowDialog();
+            this.Show();
         }
 
         protected override void OnClosed(System.EventArgs e)

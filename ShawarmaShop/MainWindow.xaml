@@ -1,75 +1,60 @@
 ﻿<Window x:Class="ShawarmaShop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ShawarmaShop – Admin panel"
-        Height="1080"
-        Width="1920"
+        Title="Admin"
+        Width="1024"
+        Height="720"
         WindowStartupLocation="CenterScreen">
 
     <DockPanel>
 
-        <StatusBar DockPanel.Dock="Bottom"
-                   Background="#EEE"
-                   Padding="5">
-            <TextBlock>User: Admin</TextBlock>
-        </StatusBar>
-
         <Border DockPanel.Dock="Top"
-                Background="#2C3E50"
+                Background="{StaticResource SecondaryBrush}"
                 Height="50"
                 Padding="10">
-            <TextBlock Text="ShawarmaShop – administration panel"
+            <TextBlock Text="Administration panel"
                        Foreground="White"
                        FontSize="18"
-                       VerticalAlignment="Center" />
+                       VerticalAlignment="Center"/>
         </Border>
 
-        <!-- sidebar -->
         <Border DockPanel.Dock="Left"
-                Width="320"
+                Width="240"
                 Background="#34495E"
-                Padding="10">
+                Padding="12">
             <DockPanel LastChildFill="False">
                 <StackPanel DockPanel.Dock="Top">
                     <Button x:Name="BtnMenu"
-                            Content="🥙 Menu"
+                            Content="Menu"
+                            Height="32"
+                            Style="{StaticResource SecondaryButton}"
                             Margin="0 0 0 10"
-                            Foreground="White"
-                            Background="#3B5998"
-                            FontWeight="Bold"
-                            Click="BtnMenu_Click" />
+                            Click="BtnMenu_Click"/>
                     <Button x:Name="BtnClients"
-                            Content="👤 Clients"
+                            Content="Clients"
+                            Height="32"
+                            Style="{StaticResource SecondaryButton}"
                             Margin="0 0 0 10"
-                            Foreground="White"
-                            Background="#3B5998"
-                            FontWeight="Bold"
-                            Click="BtnClients_Click" />
+                            Click="BtnClients_Click"/>
                     <Button x:Name="BtnOrders"
-                            Content="🧾 Orders"
-                            Margin="0 0 0 200"
-                            Foreground="White"
-                            Background="#3B5998"
-                            FontWeight="Bold"
-                            Click="BtnOrders_Click" />
+                            Content="Orders"
+                            Height="32"
+                            Style="{StaticResource SecondaryButton}"
+                            HorizontalAlignment="Stretch"
+                            Margin="0 0 0 10"
+                            Click="BtnOrders_Click"/>
                 </StackPanel>
 
-                <!-- exit bottom-left -->
                 <Button x:Name="BtnExit"
-                        DockPanel.Dock="Bottom"
-                        Content="⏎ Exit"
+                        Content="Exit"
                         Height="32"
-                        Margin="0 10 0 0"
-                        Foreground="White"
-                        Background="#E74C3C"
-                        FontWeight="Bold"
-                        Click="BtnExit_Click" />
+                        DockPanel.Dock="Bottom"
+                        Style="{StaticResource DangerButton}"
+                        Click="BtnExit_Click"/>
             </DockPanel>
         </Border>
 
-        <!-- main area -->
         <Frame x:Name="MainFrame"
-               NavigationUIVisibility="Hidden" />
-
+               NavigationUIVisibility="Hidden"/>
     </DockPanel>
 </Window>

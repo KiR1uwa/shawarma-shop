@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ShawarmaShop.UserPanelWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Your Cart"
+        Title="Cart"
         Width="800"
         Height="600"
         WindowStartupLocation="CenterScreen">
@@ -10,7 +10,7 @@
 
         <Border DockPanel.Dock="Bottom"
                 Background="#FFF0F0F0"
-                BorderBrush="#FFCCCCCC"
+                BorderBrush="{StaticResource BorderBrushStd}"
                 BorderThickness="1 0 0 0"
                 Height="60">
             <Grid>
@@ -28,18 +28,17 @@
                     <Button x:Name="btnSave"
                             Content="Save"
                             Width="90"
-                            Height="32"
+                            Style="{StaticResource PrimaryButton}"
                             Click="BtnSave_Click"/>
                     <Button x:Name="btnExit"
                             Content="Exit"
                             Width="90"
-                            Height="32"
+                            Style="{StaticResource DangerButton}"
                             Margin="10 0 0 0"
                             Click="BtnExit_Click"/>
                     <ComboBox x:Name="cmbOrderTime"
                               Width="130"
-                              Margin="10 0 0 0"
-                              VerticalAlignment="Center"/>
+                              Margin="10 0 0 0"/>
                 </StackPanel>
 
                 <TextBlock x:Name="txtTotal"
@@ -59,10 +58,10 @@
                         Content="Add item"
                         Width="110"
                         Height="32"
+                        Style="{StaticResource SecondaryButton}"
                         Click="BtnAdd_Click"
                         Margin="0 0 0 10"/>
             </StackPanel>
         </ScrollViewer>
-
     </DockPanel>
 </Window>

@@ -32,9 +32,7 @@ namespace ShawarmaShop
         public OrderWindow(Order existingOrder)
         {
             InitializeComponent();
-            order = dbContext.Orders
-                             .Include(o => o.Items)
-                             .First(o => o.Id == existingOrder.Id);
+            order = dbContext.Orders.Include(o => o.Items).First(o => o.Id == existingOrder.Id);
             isEditMode = true;
             Title = "Edit order";
             InitData();
@@ -55,6 +53,7 @@ namespace ShawarmaShop
             DpDeliveryDate.SelectedDate = DateTime.Today;
             TxtDeliveryTime.Text = DateTime.Now.ToString("HH:mm");
             RecalcTotal();
+            CmbClients_SelectionChanged(null, null);
         }
 
         private void LoadOrder()
@@ -72,11 +71,23 @@ namespace ShawarmaShop
             RecalcTotal();
         }
 
+        private void CmbClients_SelectionChanged(object? sender, System.Windows.Controls.SelectionChangedEventArgs? e)
+        {
+            if (CmbClients.SelectedItem is Client c)
+            {
+                TxtClientPhone.Text = c.Phone;
+                TxtClientEmail.Text = c.Email;
+            }
+            else
+            {
+                TxtClientPhone.Text = "";
+                TxtClientEmail.Text = "";
+            }
+        }
+
         private void RecalcTotal()
         {
-            decimal total = shawarmaItems
-                .Where(x => x.IsSelected && x.Quantity > 0)
-                .Sum(x => x.Subtotal);
+            decimal total = shawarmaItems.Where(x => x.IsSelected && x.Quantity > 0).Sum(x => x.Subtotal);
             TxtTotal.Text = total.ToString("F2");
         }
 
@@ -97,11 +108,7 @@ namespace ShawarmaShop
 
             foreach (var vm in shawarmaItems.Where(x => x.IsSelected && x.Quantity > 0))
             {
-                order.Items.Add(new OrderItem
-                {
-                    ShawarmaId = vm.Id,
-                    Quantity = vm.Quantity
-                });
+                order.Items.Add(new OrderItem { ShawarmaId = vm.Id, Quantity = vm.Quantity });
             }
 
             if (isEditMode)
@@ -118,28 +125,15 @@ namespace ShawarmaShop
 
         private bool Validate()
         {
-            if (CmbClients.SelectedItem == null)
-            {
-                MessageBox.Show("Select client"); return false;
-            }
-            if (DpDeliveryDate.SelectedDate == null)
-            {
-                MessageBox.Show("Select date"); return false;
-            }
-            if (!TimeSpan.TryParseExact(TxtDeliveryTime.Text, @"hh\:mm", CultureInfo.InvariantCulture, out _))
-            {
-                MessageBox.Show("Time format HH:mm"); return false;
-            }
-            if (!shawarmaItems.Any(x => x.IsSelected && x.Quantity > 0))
-            {
-                MessageBox.Show("Select at least one item"); return false;
-            }
+            if (CmbClients.SelectedItem == null) { MessageBox.Show("Select client"); return false; }
+            if (DpDeliveryDate.SelectedDate == null) { MessageBox.Show("Select date"); return false; }
+            if (!TimeSpan.TryParseExact(TxtDeliveryTime.Text, @"hh\:mm", CultureInfo.InvariantCulture, out _)) { MessageBox.Show("Time format HH:mm"); return false; }
+            if (!shawarmaItems.Any(x => x.IsSelected && x.Quantity > 0)) { MessageBox.Show("Select at least one item"); return false; }
             return true;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string p = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
+        private void OnPropertyChanged([CallerMemberName] string p = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
 
         public sealed class ShawarmaItemViewModel : INotifyPropertyChanged
         {
@@ -149,28 +143,14 @@ namespace ShawarmaShop
             private bool isSelected;
             private int quantity = 1;
 
-            public ShawarmaItemViewModel(Shawarma s)
-            {
-                Id = s.Id; Name = s.Name; Price = s.Price;
-            }
+            public ShawarmaItemViewModel(Shawarma s) { Id = s.Id; Name = s.Name; Price = s.Price; }
 
-            public bool IsSelected
-            {
-                get => isSelected;
-                set { isSelected = value; OnPropertyChanged(); OnPropertyChanged(nameof(Subtotal)); }
-            }
-
-            public int Quantity
-            {
-                get => quantity;
-                set { if (value > 0) { quantity = value; OnPropertyChanged(); OnPropertyChanged(nameof(Subtotal)); } }
-            }
-
+            public bool IsSelected { get => isSelected; set { isSelected = value; OnChanged(); } }
+            public int Quantity { get => quantity; set { if (value > 0) { quantity = value; OnChanged(); } } }
             public decimal Subtotal => IsSelected ? Price * Quantity : 0;
 
             public event PropertyChangedEventHandler? PropertyChanged;
-            private void OnPropertyChanged([CallerMemberName] string p = "") =>
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
+            private void OnChanged([CallerMemberName] string p = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
         }
     }
 }

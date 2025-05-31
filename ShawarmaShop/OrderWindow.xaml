@@ -9,85 +9,59 @@
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <!-- top -->
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Left"
-                    Margin="0 0 0 10">
-            <TextBlock Text="Client"
-                       VerticalAlignment="Center"
-                       Margin="0 0 6 0"/>
-            <ComboBox x:Name="CmbClients"
-                      Width="180"
-                      DisplayMemberPath="Name"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Ready at"
-                       VerticalAlignment="Center"
-                       Margin="18 0 6 0"/>
-            <DatePicker x:Name="DpDeliveryDate"
-                        Width="130"/>
-            <TextBox x:Name="TxtDeliveryTime"
-                     Width="60"
-                     Margin="4 0 0 0"
-                     VerticalContentAlignment="Center"
-                     Text="12:00"/>
+        <TextBlock Text="Client:" VerticalAlignment="Center"/>
+        <ComboBox x:Name="CmbClients"
+                  Grid.Column="1"
+                  Height="32"
+                  Margin="0 0 10 0"
+                  DisplayMemberPath="Name"
+                  SelectionChanged="CmbClients_SelectionChanged"/>
+
+        <TextBlock Text="Ready at" Grid.Column="2" Grid.ColumnSpan="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 6 0"/>
+        <DatePicker x:Name="DpDeliveryDate" Grid.Column="3" Width="120" Margin="0 0 6 0"/>
+        <TextBox x:Name="TxtDeliveryTime" Grid.Column="4" Width="60" VerticalContentAlignment="Center"/>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="5" Orientation="Horizontal" Margin="0 10 0 10">
+            <TextBlock Text="Phone:" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock x:Name="TxtClientPhone" Margin="6 0 20 0" VerticalAlignment="Center"/>
+            <TextBlock Text="Email:" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock x:Name="TxtClientEmail" Margin="6 0 0 0" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- items -->
         <DataGrid x:Name="ShawarmaItemsGrid"
-                  Grid.Row="1"
+                  Grid.Row="2"
+                  Grid.ColumnSpan="5"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="Add"
-                                        Binding="{Binding IsSelected}"
-                                        Width="60"/>
-                <DataGridTextColumn Header="Shawarma"
-                                    Binding="{Binding Name}"
-                                    IsReadOnly="True"
-                                    Width="200"/>
-                <DataGridTextColumn Header="Price"
-                                    Binding="{Binding Price}"
-                                    IsReadOnly="True"
-                                    Width="80"/>
-                <DataGridTextColumn Header="Qty"
-                                    Binding="{Binding Quantity}"
-                                    Width="60"/>
-                <DataGridTextColumn Header="Subtotal"
-                                    Binding="{Binding Subtotal}"
-                                    IsReadOnly="True"
-                                    Width="90"/>
+                <DataGridCheckBoxColumn Header="Add"  Binding="{Binding IsSelected}" Width="60"/>
+                <DataGridTextColumn    Header="Shawarma" Binding="{Binding Name}" IsReadOnly="True" Width="200"/>
+                <DataGridTextColumn    Header="Price" Binding="{Binding Price}" IsReadOnly="True" Width="80"/>
+                <DataGridTextColumn    Header="Qty"   Binding="{Binding Quantity}" Width="60"/>
+                <DataGridTextColumn    Header="Subtotal" Binding="{Binding Subtotal}" IsReadOnly="True" Width="90"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- bottom -->
-        <StackPanel Grid.Row="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-            <TextBlock Text="Comment:"
-                       VerticalAlignment="Center"
-                       Margin="0 0 6 0"/>
-            <TextBox x:Name="TxtComment"
-                     Width="220"
-                     Margin="0 0 16 0"/>
-            <TextBlock Text="Total:"
-                       VerticalAlignment="Center"
-                       Margin="0 0 6 0"/>
-            <TextBlock x:Name="TxtTotal"
-                       Width="80"
-                       VerticalAlignment="Center"/>
-            <Button x:Name="BtnSave"
-                    Width="90"
-                    Margin="16 0 6 0"
-                    Content="Save"
-                    Click="BtnSave_Click"/>
-            <Button x:Name="BtnCancel"
-                    Width="90"
-                    Content="Cancel"
-                    Click="BtnCancel_Click"/>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <TextBlock Text="Comment:" VerticalAlignment="Center" Margin="0 0 6 0"/>
+            <TextBox x:Name="TxtComment" Width="220" Margin="0 0 16 0"/>
+            <TextBlock Text="Total:" VerticalAlignment="Center" Margin="0 0 6 0"/>
+            <TextBlock x:Name="TxtTotal" Width="80" VerticalAlignment="Center"/>
+            <Button x:Name="BtnSave" Content="Save" Width="90" Style="{StaticResource PrimaryButton}" Margin="16 0 6 0" Click="BtnSave_Click"/>
+            <Button x:Name="BtnCancel" Content="Cancel" Width="90" Style="{StaticResource SecondaryButton}" Click="BtnCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

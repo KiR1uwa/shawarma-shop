@@ -22,7 +22,15 @@ namespace ShawarmaShop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -42,7 +50,9 @@ namespace ShawarmaShop.Migrations
                         new
                         {
                             Id = 1,
+                            Email = "",
                             PasswordHash = "21232f297a57a5a743894a0e4a801fc3",
+                            Phone = "",
                             Role = "admin",
                             Username = "admin"
                         });

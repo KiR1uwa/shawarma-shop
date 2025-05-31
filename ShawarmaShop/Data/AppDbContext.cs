@@ -4,6 +4,7 @@ using Client_.Models;
 using Order_.Models;
 using OrderItem_.Models;
 using Authentication;
+using System.IO;
 
 public class AppDbContext : DbContext
 {
@@ -15,8 +16,14 @@ public class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=shawarma.db");
+        string dbPath = Path.Combine(AppContext.BaseDirectory, "shawarma.db");
+        optionsBuilder.UseSqlite($"Data Source={dbPath}");
     }
+    public AppDbContext()
+    {
+        Database.Migrate();
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

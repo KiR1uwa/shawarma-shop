@@ -2,38 +2,73 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Register"
-        Height="300" Width="400"
+        Height="300"
+        Width="360"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Register New User" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" Grid.Row="0" HorizontalAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1" Margin="0,0,0,10">
-            <TextBlock Text="Username" FontWeight="SemiBold"/>
-            <TextBox x:Name="txtUsername" Width="250"/>
-        </StackPanel>
+        <TextBlock Text="Username:"
+                   VerticalAlignment="Center"
+                   Grid.Row="0" Grid.Column="0" Margin="0,0,10,10"/>
+        <TextBox x:Name="txtUsername"
+                 Height="28"
+                 Grid.Row="0" Grid.Column="1" Margin="0,0,0,10"/>
 
-        <StackPanel Grid.Row="2" Margin="0,0,0,10">
-            <TextBlock Text="Password" FontWeight="SemiBold"/>
-            <PasswordBox x:Name="txtPassword" Width="250"/>
-        </StackPanel>
+        <TextBlock Text="Password:"
+                   VerticalAlignment="Center"
+                   Grid.Row="1" Grid.Column="0" Margin="0,0,10,10"/>
+        <PasswordBox x:Name="txtPassword"
+                     Height="28"
+                     Grid.Row="1" Grid.Column="1" Margin="0,0,0,10"/>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Register" Width="80" Margin="5" Click="BtnRegister_Click"
-                    Background="#27AE60" Foreground="White"/>
-            <Button Content="Back" Width="80" Margin="5" Click="BtnBack_Click"
-                    Background="#2980B9" Foreground="White"/>
-            
-            <Button Content="Cancel" Width="80" Margin="5" Click="BtnCancel_Click"
-                    Background="#E74C3C" Foreground="White"/>
-            
+        <TextBlock Text="Phone:"
+                   VerticalAlignment="Center"
+                   Grid.Row="2" Grid.Column="0" Margin="0,0,10,10"/>
+        <TextBox x:Name="txtPhone"
+                 Height="28"
+                 Grid.Row="2" Grid.Column="1" Margin="0,0,0,10"/>
+
+        <TextBlock Text="E-mail:"
+                   VerticalAlignment="Center"
+                   Grid.Row="3" Grid.Column="0" Margin="0,0,10,10"/>
+        <TextBox x:Name="txtEmail"
+                 Height="28"
+                 Grid.Row="3" Grid.Column="1" Margin="0,0,0,10"/>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="4" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right">
+            <Button x:Name="btnRegister"
+                    Width="90"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Content="Register"
+                    Click="BtnRegister_Click"/>
+            <Button x:Name="btnBack"
+                    Width="80"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Content="Back"
+                    Click="BtnBack_Click"/>
+            <Button x:Name="btnCancel"
+                    Width="90"
+                    Height="30"
+                    Content="Cancel"
+                    Click="BtnCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -15,10 +15,21 @@ public class AppDbContext : DbContext
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<User> Users { get; set; }
 
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
+
+    public AppDbContext()
+    {
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string dbPath = Path.Combine(AppContext.BaseDirectory, "shawarma.db");
-        optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        if (!optionsBuilder.IsConfigured)
+        {
+            string dbPath = Path.Combine(AppContext.BaseDirectory, "shawarma.db");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

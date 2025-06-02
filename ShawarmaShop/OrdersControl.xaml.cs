@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using ShawarmaShopCore.Models;
+using ShawarmaShop.Infrastructure.Data;
 
 namespace ShawarmaShop
 {

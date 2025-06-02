@@ -1,129 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
+using ShawarmaShopCore.Interfaces;
 using ShawarmaShopCore.Models;
+using ShawarmaShopCore.Services;
 
 namespace ShawarmaShop
 {
     public partial class ClientsControl : UserControl
     {
-        private AppDbContext dbContext;
+        private readonly IClientService _clientService;
 
-        public ClientsControl()
+        public ClientsControl(IClientService clientService)
         {
             InitializeComponent();
-            dbContext = new AppDbContext();
+            _clientService = clientService;
             LoadClients();
-            this.Unloaded += ClientsControl_Unloaded;
         }
 
-        private async void LoadClients()
+        private void LoadClients()
         {
-            try
+            ClientsDataGrid.ItemsSource = _clientService.GetAllClients();
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new AddEditClientWindow();
+            if (window.ShowDialog() == true)
             {
-                var clients = await dbContext.Clients.ToListAsync();
-                ClientsDataGrid.ItemsSource = clients;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading clients: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _clientService.AddClient(window.Client);
+                LoadClients();
             }
         }
 
-        private async void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            var addWindow = new AddEditClientWindow();
-            if (addWindow.ShowDialog() == true)
+            if (ClientsDataGrid.SelectedItem is Client selectedClient)
             {
-                try
+                var window = new AddEditClientWindow(selectedClient);
+                if (window.ShowDialog() == true)
                 {
-                    dbContext.Clients.Add(addWindow.Client);
-                    await dbContext.SaveChangesAsync();
+                    _clientService.UpdateClient(window.Client);
                     LoadClients();
-                    MessageBox.Show("Client added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error adding client: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
-        private async void BtnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (ClientsDataGrid.SelectedItem is Client selectedClient)
             {
-                var editWindow = new AddEditClientWindow(selectedClient);
-                if (editWindow.ShowDialog() == true)
+                if (MessageBox.Show("Are you sure you want to delete this client?", "Confirm Delete",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    try
-                    {
-                        var existingClient = await dbContext.Clients.FindAsync(selectedClient.Id);
-                        if (existingClient != null)
-                        {
-                            existingClient.Name = editWindow.Client.Name;
-                            existingClient.Phone = editWindow.Client.Phone;
-                            existingClient.Email = editWindow.Client.Email;
-                            await dbContext.SaveChangesAsync();
-                            LoadClients();
-                            MessageBox.Show("Client updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error updating client: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    _clientService.DeleteClient(selectedClient.Id);
+                    LoadClients();
                 }
             }
-            else
-            {
-                MessageBox.Show("Please select a client to edit.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-
-        private async void BtnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (ClientsDataGrid.SelectedItem is Client selectedClient)
-            {
-                var result = MessageBox.Show($"Are you sure you want to delete client '{selectedClient.Name}'?",
-                    "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        dbContext.Clients.Remove(selectedClient);
-                        await dbContext.SaveChangesAsync();
-                        LoadClients();
-                        MessageBox.Show("Client deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error deleting client: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a client to delete.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-
-        private void ClientsControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            dbContext?.Dispose();
         }
     }
 }

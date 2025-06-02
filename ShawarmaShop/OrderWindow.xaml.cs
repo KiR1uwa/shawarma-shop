@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using ShawarmaShopCore.Models;
 using Microsoft.EntityFrameworkCore;
+using ShawarmaShop.Infrastructure.Data;
 
 namespace ShawarmaShop
 {

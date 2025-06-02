@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using ShawarmaShopCore.Models;
+using ShawarmaShop.Infrastructure.Data;
 
 namespace ShawarmaShop.Tests
 {

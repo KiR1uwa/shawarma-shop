@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="shawarma.db" />
     <ProjectReference Include="..\ShawarmaShop.Core\ShawarmaShopCore.csproj" />
+    <ProjectReference Include="..\ShawarmaShop.Infrastructure\ShawarmaShop.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

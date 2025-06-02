@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using Authentication;
+using ShawarmaShop.Infrastructure.Data;
 
 namespace ShawarmaShop
 {

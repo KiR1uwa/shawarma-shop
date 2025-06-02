@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ShawarmaShopCore.Models;
 using Microsoft.EntityFrameworkCore;
+using ShawarmaShop.Infrastructure.Data;
 
 namespace ShawarmaShop.Tests
 {

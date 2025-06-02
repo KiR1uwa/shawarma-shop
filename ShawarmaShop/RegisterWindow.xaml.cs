@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using Authentication;
+using ShawarmaShop.Infrastructure.Data;
 
 namespace ShawarmaShop
 {

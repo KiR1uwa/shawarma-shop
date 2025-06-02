@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Authentication;
 using ShawarmaShopCore.Models;
+using ShawarmaShop.Infrastructure.Data;
 
 namespace ShawarmaShop
 {

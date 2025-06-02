@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Client_.Models;
-using Order_.Models;
-using Shawarma_.Models;
-using OrderItem_.Models;
+using ShawarmaShopCore.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ShawarmaShop.Tests

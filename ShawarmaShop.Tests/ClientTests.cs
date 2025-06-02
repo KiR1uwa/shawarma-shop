@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Client_.Models;
+using ShawarmaShopCore.Models;
 
 namespace ShawarmaShop.Tests
 {

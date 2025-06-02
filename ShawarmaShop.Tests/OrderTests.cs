@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Order_.Models;
-using OrderItem_.Models;
-using Shawarma_.Models;
-using Client_.Models;
+using ShawarmaShopCore.Models;
 using System;
 
 namespace ShawarmaShop.Tests

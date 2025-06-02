@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel;
-using Shawarma_.Models;
+using ShawarmaShopCore.Models;
 using System;
 
 namespace ShawarmaShop.Tests

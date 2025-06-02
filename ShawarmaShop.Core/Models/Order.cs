@@ -1,7 +1,4 @@
-﻿using OrderItem_.Models;
-using Client_.Models;
-
-namespace Order_.Models
+﻿namespace ShawarmaShopCore.Models
 {
     public class Order
     {

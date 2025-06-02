@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
-using Shawarma_.Models;
-using Client_.Models;
-using Order_.Models;
-using OrderItem_.Models;
+using ShawarmaShopCore.Models;
+
 using Authentication;
 
 public class AppDbContext : DbContext

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
-using Shawarma_.Models;
+using ShawarmaShopCore.Models;
 
 namespace ShawarmaShop
 {

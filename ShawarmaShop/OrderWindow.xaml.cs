@@ -5,11 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using Client_.Models;
+using ShawarmaShopCore.Models;
 using Microsoft.EntityFrameworkCore;
-using Order_.Models;
-using OrderItem_.Models;
-using Shawarma_.Models;
 
 namespace ShawarmaShop
 {

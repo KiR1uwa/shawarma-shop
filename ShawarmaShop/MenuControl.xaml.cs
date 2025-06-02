@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
-using Shawarma_.Models;
+using ShawarmaShopCore.Models;
 
 namespace ShawarmaShop
 {

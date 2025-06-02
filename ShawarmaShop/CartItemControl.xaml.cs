@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using Shawarma_.Models;
+using ShawarmaShopCore.Models;
 
 namespace ShawarmaShop
 {

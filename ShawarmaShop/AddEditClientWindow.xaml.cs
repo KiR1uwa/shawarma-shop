@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows;
-using Client_.Models;
+using ShawarmaShopCore.Models;
 
 namespace ShawarmaShop
 {

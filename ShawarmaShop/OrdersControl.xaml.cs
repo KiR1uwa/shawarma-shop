@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
-using Order_.Models;
+using ShawarmaShopCore.Models;
 
 namespace ShawarmaShop
 {

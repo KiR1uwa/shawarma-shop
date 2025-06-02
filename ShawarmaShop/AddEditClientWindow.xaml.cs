@@ -1,40 +1,35 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Windows;
+﻿using System.Windows;
 using ShawarmaShopCore.Models;
+using ShawarmaShopCore.Validation;
 
 namespace ShawarmaShop
 {
     public partial class AddEditClientWindow : Window
     {
         public Client Client { get; private set; }
-        private bool isEditMode;
+        private readonly bool isEditMode;
 
         public AddEditClientWindow()
         {
             InitializeComponent();
-            isEditMode = false;
             Client = new Client();
+            isEditMode = false;
             Title = "Add New Client";
         }
 
-        public AddEditClientWindow(Client client)
+        public AddEditClientWindow(Client existingClient)
         {
             InitializeComponent();
-            isEditMode = true;
             Client = new Client
             {
-                Id = client.Id,
-                Name = client.Name,
-                Phone = client.Phone,
-                Email = client.Email
+                Id = existingClient.Id,
+                Name = existingClient.Name,
+                Phone = existingClient.Phone,
+                Email = existingClient.Email
             };
+            isEditMode = true;
             Title = "Edit Client";
-            LoadData();
-        }
 
-        private void LoadData()
-        {
             TxtName.Text = Client.Name;
             TxtPhone.Text = Client.Phone;
             TxtEmail.Text = Client.Email;
@@ -42,78 +37,43 @@ namespace ShawarmaShop
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateInput())
-            {
-                Client.Name = TxtName.Text.Trim();
-                Client.Phone = TxtPhone.Text.Trim();
-                Client.Email = TxtEmail.Text.Trim();
+            string name = TxtName.Text.Trim();
+            string phone = TxtPhone.Text.Trim();
+            string email = TxtEmail.Text.Trim();
 
-                DialogResult = true;
-                Close();
+            if (!ClientValidator.IsValidName(name))
+            {
+                MessageBox.Show("Name must be at least 2 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TxtName.Focus();
+                return;
             }
+
+            if (!ClientValidator.IsValidPhone(phone))
+            {
+                MessageBox.Show("Phone must contain at least 10 digits.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TxtPhone.Focus();
+                return;
+            }
+
+            if (!ClientValidator.IsValidEmail(email))
+            {
+                MessageBox.Show("Invalid email format.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                TxtEmail.Focus();
+                return;
+            }
+
+            Client.Name = name;
+            Client.Phone = phone;
+            Client.Email = email;
+
+            DialogResult = true;
+            Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();
-        }
-
-        private bool ValidateInput()
-        {
-            if (string.IsNullOrWhiteSpace(TxtName.Text))
-            {
-                MessageBox.Show("Please enter a name for the client.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                TxtName.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(TxtPhone.Text))
-            {
-                MessageBox.Show("Please enter a phone number.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                TxtPhone.Focus();
-                return false;
-            }
-
-            if (!IsValidPhoneNumber(TxtPhone.Text.Trim()))
-            {
-                MessageBox.Show("Please enter a valid phone number (e.g., +48123456789).", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                TxtPhone.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(TxtEmail.Text))
-            {
-                MessageBox.Show("Please enter an email address.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                TxtEmail.Focus();
-                return false;
-            }
-
-            if (!IsValidEmail(TxtEmail.Text.Trim()))
-            {
-                MessageBox.Show("Please enter a valid email address.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                TxtEmail.Focus();
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool IsValidPhoneNumber(string phone)
-        {
-            var phoneRegex = new Regex(@"^\+?[1-9]\d{8,14}$");
-            return phoneRegex.IsMatch(phone);
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-            return emailRegex.IsMatch(email);
         }
     }
 }

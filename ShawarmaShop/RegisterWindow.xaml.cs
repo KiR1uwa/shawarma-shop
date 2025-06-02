@@ -26,27 +26,25 @@ namespace ShawarmaShop
                 string.IsNullOrWhiteSpace(phone) ||
                 string.IsNullOrWhiteSpace(email))
             {
-                MessageBox.Show("Please fill in all fields", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            var phoneRx = new Regex(@"^\+?[1-9]\d{8,14}$");
-            if (!phoneRx.IsMatch(phone))
+            if (!Regex.IsMatch(phone, @"^\+?[1-9]\d{8,14}$"))
             {
-                MessageBox.Show("Invalid phone number", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Invalid phone number.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            var emailRx = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-            if (!emailRx.IsMatch(email))
+            if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
-                MessageBox.Show("Invalid e-mail address", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Invalid email address.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (dbContext.Users.Any(u => u.Username == username))
             {
-                MessageBox.Show("Username already exists", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Username already exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -56,41 +54,26 @@ namespace ShawarmaShop
                 PasswordHash = PasswordHasher.Hash(password),
                 Phone = phone,
                 Email = email,
-                Role = "user"
+                Role = UserRoles.User
             };
 
             dbContext.Users.Add(newUser);
             dbContext.SaveChanges();
 
-            MessageBox.Show("Registration successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Registration successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            if (Owner is LoginWindow)
-            {
-                DialogResult = true;
-            }
-            else
-            {
-                var login = new LoginWindow();
-                Application.Current.MainWindow = login;
-                login.Show();
-                Close();
-            }
-            this.Hide();
-            var reg = new LoginWindow();
-            Owner = reg.Owner;
-            reg.ShowDialog();
-            this.Show();
+            var login = new LoginWindow();
+            login.Show();
+            Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e) => Close();
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            var reg = new LoginWindow();
-            Owner = reg.Owner;
-            reg.ShowDialog();
-            this.Show();
+            var login = new LoginWindow();
+            login.Show();
+            Close();
         }
 
         protected override void OnClosed(System.EventArgs e)

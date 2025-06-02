@@ -214,11 +214,9 @@ var assemblies = [
     "name": "ShawarmaShop",
     "classes": [
       { "name": "AppDbContext", "rp": "ShawarmaShop_AppDbContext.html", "cl": 59, "ucl": 7, "cal": 66, "tl": 92, "cb": 1, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Authentication.PasswordHasher", "rp": "ShawarmaShop_PasswordHasher.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 21, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Authentication.User", "rp": "ShawarmaShop_User.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "ShawarmaShop.AddEditClientWindow", "rp": "ShawarmaShop_AddEditClientWindow.html", "cl": 0, "ucl": 85, "cal": 85, "tl": 171, "cb": 0, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ShawarmaShop.AddEditClientWindow", "rp": "ShawarmaShop_AddEditClientWindow.html", "cl": 0, "ucl": 56, "cal": 56, "tl": 131, "cb": 0, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.AddEditShawarmaWindow", "rp": "ShawarmaShop_AddEditShawarmaWindow.html", "cl": 0, "ucl": 63, "cal": 63, "tl": 141, "cb": 0, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "ShawarmaShop.App", "rp": "ShawarmaShop_App.html", "cl": 0, "ucl": 29, "cal": 29, "tl": 148, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ShawarmaShop.App", "rp": "ShawarmaShop_App.html", "cl": 0, "ucl": 29, "cal": 29, "tl": 149, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.CartItemControl", "rp": "ShawarmaShop_CartItemControl.html", "cl": 0, "ucl": 36, "cal": 36, "tl": 119, "cb": 0, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.ClientsControl", "rp": "ShawarmaShop_ClientsControl.html", "cl": 0, "ucl": 91, "cal": 91, "tl": 156, "cb": 0, "tb": 21, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.LoginWindow", "rp": "ShawarmaShop_LoginWindow.html", "cl": 0, "ucl": 41, "cal": 41, "tl": 121, "cb": 0, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -228,17 +226,20 @@ var assemblies = [
       { "name": "ShawarmaShop.Migrations.AppDbContextModelSnapshot", "rp": "ShawarmaShop_AppDbContextModelSnapshot.html", "cl": 0, "ucl": 303, "cal": 303, "tl": 331, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.OrdersControl", "rp": "ShawarmaShop_OrdersControl.html", "cl": 0, "ucl": 66, "cal": 66, "tl": 143, "cb": 0, "tb": 21, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.OrderWindow", "rp": "ShawarmaShop_OrderWindow.html", "cl": 0, "ucl": 105, "cal": 105, "tl": 220, "cb": 0, "tb": 49, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "ShawarmaShop.RegisterWindow", "rp": "ShawarmaShop_RegisterWindow.html", "cl": 0, "ucl": 74, "cal": 74, "tl": 182, "cb": 0, "tb": 26, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ShawarmaShop.RegisterWindow", "rp": "ShawarmaShop_RegisterWindow.html", "cl": 0, "ucl": 58, "cal": 58, "tl": 165, "cb": 0, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.Themes", "rp": "ShawarmaShop_Themes.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 26, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShop.UserPanelWindow", "rp": "ShawarmaShop_UserPanelWindow.html", "cl": 0, "ucl": 101, "cal": 101, "tl": 199, "cb": 0, "tb": 29, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "ShawarmaShopCore",
     "classes": [
+      { "name": "Authentication.PasswordHasher", "rp": "ShawarmaShopCore_PasswordHasher.html", "cl": 10, "ucl": 0, "cal": 10, "tl": 21, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Authentication.User", "rp": "ShawarmaShopCore_User.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShopCore.Models.Client", "rp": "ShawarmaShopCore_Client.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShopCore.Models.Order", "rp": "ShawarmaShopCore_Order.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShopCore.Models.OrderItem", "rp": "ShawarmaShopCore_OrderItem.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "ShawarmaShopCore.Models.Shawarma", "rp": "ShawarmaShopCore_Shawarma.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ShawarmaShopCore.Validation.ClientValidator", "rp": "ShawarmaShopCore_ClientValidator.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 30, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
@@ -255,8 +256,8 @@ var riskHotspots = [
   {
     "assembly": "ShawarmaShop", "class": "ShawarmaShop.RegisterWindow", "reportPath": "ShawarmaShop_RegisterWindow.html", "methodName": "BtnRegister_Click(System.Object,System.Windows.RoutedEventArgs)", "methodShortName": "BtnRegister_Click(...)", "fileIndex": 1, "line": 18,
     "metrics": [
-      { "value": 272, "exceeded": true },
-      { "value": 16, "exceeded": true },
+      { "value": 210, "exceeded": true },
+      { "value": 14, "exceeded": false },
     ]},
   {
     "assembly": "ShawarmaShop", "class": "ShawarmaShop.OrderWindow", "reportPath": "ShawarmaShop_OrderWindow.html", "methodName": "BtnSave_Click(System.Object,System.Windows.RoutedEventArgs)", "methodShortName": "BtnSave_Click(...)", "fileIndex": 1, "line": 92,
@@ -275,12 +276,6 @@ var riskHotspots = [
     "metrics": [
       { "value": 132, "exceeded": true },
       { "value": 11, "exceeded": false },
-    ]},
-  {
-    "assembly": "ShawarmaShop", "class": "ShawarmaShop.AddEditClientWindow", "reportPath": "ShawarmaShop_AddEditClientWindow.html", "methodName": "ValidateInput()", "methodShortName": "ValidateInput()", "fileIndex": 1, "line": 63,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
     ]},
   {
     "assembly": "ShawarmaShop", "class": "ShawarmaShop.App", "reportPath": "ShawarmaShop_App.html", "methodName": "OnStartup(System.Windows.StartupEventArgs)", "methodShortName": "OnStartup(...)", "fileIndex": 1, "line": 17,
@@ -320,6 +315,12 @@ var riskHotspots = [
     ]},
   {
     "assembly": "ShawarmaShop", "class": "ShawarmaShop.AddEditClientWindow", "reportPath": "ShawarmaShop_AddEditClientWindow.html", "methodName": "System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)", "methodShortName": "System.Windows.Markup.IComponentConnector.Connect(...)", "fileIndex": 0, "line": 46,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "ShawarmaShop", "class": "ShawarmaShop.AddEditClientWindow", "reportPath": "ShawarmaShop_AddEditClientWindow.html", "methodName": "BtnSave_Click(System.Object,System.Windows.RoutedEventArgs)", "methodShortName": "BtnSave_Click(...)", "fileIndex": 1, "line": 39,
     "metrics": [
       { "value": 42, "exceeded": true },
       { "value": 6, "exceeded": false },

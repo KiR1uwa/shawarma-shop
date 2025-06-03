@@ -84,7 +84,7 @@ namespace ShawarmaShop {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ShawarmaShop;V1.0.0.0;component/clientscontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ShawarmaShop;component/clientscontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ClientsControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

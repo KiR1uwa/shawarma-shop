@@ -172,3 +172,4 @@ C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop\obj\Debug\net8.0-windows\
 C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop\obj\Debug\net8.0-windows\ShawarmaShop.genruntimeconfig.cache
 C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop\obj\Debug\net8.0-windows\ref\ShawarmaShop.dll
 C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop\bin\Debug\net8.0-windows\ShawarmaShop.xml
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop\obj\Debug\net8.0-windows\ShawarmaShop.sourcelink.json

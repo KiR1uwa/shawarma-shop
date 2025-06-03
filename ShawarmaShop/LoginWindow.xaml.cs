@@ -34,13 +34,10 @@ namespace ShawarmaShop
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             // Hide the dialog so the user can’t double-click buttons while we work.
-            Hide();
 
             // NOTE: Showing main window *before* we finish validation looks odd
             // but matches the original flow. Consider refactoring.
-            var main = new MainWindow { Owner = this };
-            main.ShowDialog();
-            Application.Current.MainWindow = this;
+            
 
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Password.Trim();

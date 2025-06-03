@@ -100,7 +100,7 @@ namespace ShawarmaShop {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ShawarmaShop;V1.0.0.0;component/userpanelwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ShawarmaShop;component/userpanelwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\UserPanelWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

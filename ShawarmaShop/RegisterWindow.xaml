@@ -1,0 +1,80 @@
+﻿<Window x:Class="ShawarmaShop.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Register"
+        Width="420"
+        Height="380"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Username:"
+                   VerticalAlignment="Center"/>
+        <TextBox x:Name="txtUsername"
+                 Grid.Column="1"
+                 Height="32"
+                 Margin="0 0 0 12"/>
+
+        <TextBlock Text="Password:"
+                   Grid.Row="1"
+                   VerticalAlignment="Center"/>
+        <PasswordBox x:Name="txtPassword"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Height="32"
+                     Margin="0 0 0 12"/>
+
+        <TextBlock Text="Phone:"
+                   Grid.Row="2"
+                   VerticalAlignment="Center"/>
+        <TextBox x:Name="txtPhone"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Height="32"
+                 Margin="0 0 0 12"/>
+
+        <TextBlock Text="E-mail:"
+                   Grid.Row="3"
+                   VerticalAlignment="Center"/>
+        <TextBox x:Name="txtEmail"
+                 Grid.Row="3"
+                 Grid.Column="1"
+                 Height="32"
+                 Margin="0 0 0 12"/>
+
+        <StackPanel Grid.Row="4"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+            <Button x:Name="btnBack"
+                    Content="Back"
+                    Width="90"
+                    Style="{StaticResource SecondaryButton}"
+                    Click="BtnBack_Click"/>
+            <Button x:Name="btnRegister"
+                    Content="Register"
+                    Width="110"
+                    Style="{StaticResource PrimaryButton}"
+                    Margin="10 0 0 0"
+                    Click="BtnRegister_Click"/>
+            <Button x:Name="btnCancel"
+                    Content="Cancel"
+                    Width="110"
+                    Style="{StaticResource SecondaryButton}"
+                    Margin="10 0 0 0"
+                    Click="BtnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

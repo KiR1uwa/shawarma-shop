@@ -1,0 +1,16 @@
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\bin\Debug\net8.0-windows\ShawarmaShop.Infrastructure.deps.json
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\bin\Debug\net8.0-windows\ShawarmaShop.Infrastructure.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\bin\Debug\net8.0-windows\ShawarmaShop.Infrastructure.pdb
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\bin\Debug\net8.0-windows\ShawarmaShopCore.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\bin\Debug\net8.0-windows\ShawarmaShopCore.pdb
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ShawarmaShop.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ShawarmaShop.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ShawarmaShop.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ShawarmaShop.Infrastructure.AssemblyInfo.cs
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ShawarmaShop.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\Shawarma.BE6A579B.Up2Date
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ShawarmaShop.Infrastructure.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\refint\ShawarmaShop.Infrastructure.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ShawarmaShop.Infrastructure.pdb
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\obj\Debug\net8.0-windows\ref\ShawarmaShop.Infrastructure.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Infrastructure\bin\Debug\net8.0-windows\ShawarmaShop.xml

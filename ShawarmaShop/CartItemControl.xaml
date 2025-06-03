@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="ShawarmaShop.CartItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="Auto">
+    <Border BorderBrush="LightGray"
+            BorderThickness="1"
+            Padding="5"
+            CornerRadius="4"
+            Margin="0 0 0 8">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- dish -->
+            <ComboBox x:Name="cmbDish"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="CmbDish_SelectionChanged"/>
+
+            <!-- unit price -->
+            <TextBlock x:Name="txtPrice"
+                       Grid.Column="1"
+                       Margin="12 0"
+                       VerticalAlignment="Center"
+                       Foreground="Red"/>
+
+            <!-- ingredients -->
+            <TextBlock x:Name="txtIngredients"
+                       Grid.Column="2"
+                       VerticalAlignment="Center"
+                       TextTrimming="CharacterEllipsis"/>
+
+            <!-- quantity -->
+            <TextBox x:Name="txtQty"
+                     Grid.Column="3"
+                     Width="50"
+                     VerticalContentAlignment="Center"
+                     TextAlignment="Center"
+                     Text="1"
+                     PreviewTextInput="TxtQty_PreviewTextInput"
+                     TextChanged="TxtQty_TextChanged"/>
+
+            <!-- delete -->
+            <Button x:Name="btnDelete"
+                    Grid.Column="4"
+                    Content="🗑"
+                    Width="32"
+                    Height="32"
+                    FontSize="16"
+                    Margin="12 0 0 0"
+                    Click="BtnDelete_Click"/>
+        </Grid>
+    </Border>
+</UserControl>

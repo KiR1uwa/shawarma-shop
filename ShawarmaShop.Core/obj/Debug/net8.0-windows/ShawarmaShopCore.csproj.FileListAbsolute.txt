@@ -1,0 +1,12 @@
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\bin\Debug\net8.0-windows\ShawarmaShopCore.deps.json
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\bin\Debug\net8.0-windows\ShawarmaShopCore.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\bin\Debug\net8.0-windows\ShawarmaShopCore.pdb
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\ShawarmaShopCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\ShawarmaShopCore.AssemblyInfoInputs.cache
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\ShawarmaShopCore.AssemblyInfo.cs
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\ShawarmaShopCore.csproj.CoreCompileInputs.cache
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\ShawarmaShopCore.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\refint\ShawarmaShopCore.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\ShawarmaShopCore.pdb
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\obj\Debug\net8.0-windows\ref\ShawarmaShopCore.dll
+C:\Users\kyryl\source\repos\shawarma-shop\ShawarmaShop.Core\bin\Debug\net8.0-windows\ShawarmaShop.xml

@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ShawarmaShop.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:ShawarmaShop.Infrastructure.Data.AppDbContext">
+            <summary>
+                Entity Framework Core database context for the **Shawarma Shop** application.
+                <para>
+                    Exposes <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> wrappers for every aggregate root in the domain
+                    model and configures SQLite as the underlying provider when no external
+                    options are supplied.
+                </para>
+            </summary>
+            <remarks>
+                Two constructors are provided:
+                <list type="bullet">
+                    <item>
+                        <description>
+                            <see cref="M:ShawarmaShop.Infrastructure.Data.AppDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{ShawarmaShop.Infrastructure.Data.AppDbContext})"/> – used by ASP.NET Core
+                            dependency‑injection or test suites that wish to supply their own options
+                            (e.g. an in‑memory provider).
+                        </description>
+                    </item>
+                    <item>
+                        <description>
+                            Parameter‑less <see cref="M:ShawarmaShop.Infrastructure.Data.AppDbContext.#ctor"/> – falls back to SQLite in the
+                            executable’s directory (<c>shawarma.db</c>).  Handy for WPF scenarios where
+                            no DI container is available.
+                        </description>
+                    </item>
+                </list>
+            </remarks>
+        </member>
+        <member name="P:ShawarmaShop.Infrastructure.Data.AppDbContext.Shawarmas">
+            <summary>Menu items available for ordering.</summary>
+        </member>
+        <member name="P:ShawarmaShop.Infrastructure.Data.AppDbContext.Clients">
+            <summary>Registered clients and walk‑ins.</summary>
+        </member>
+        <member name="P:ShawarmaShop.Infrastructure.Data.AppDbContext.Orders">
+            <summary>Orders placed by clients (parent in a 1‑to‑many relationship with <see cref="T:ShawarmaShopCore.Models.OrderItem"/>).</summary>
+        </member>
+        <member name="P:ShawarmaShop.Infrastructure.Data.AppDbContext.OrderItems">
+            <summary>Line items belonging to an <see cref="T:ShawarmaShopCore.Models.Order"/>.</summary>
+        </member>
+        <member name="P:ShawarmaShop.Infrastructure.Data.AppDbContext.Users">
+            <summary>Application users – currently only <c>admin</c> and regular customers.</summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Data.AppDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{ShawarmaShop.Infrastructure.Data.AppDbContext})">
+            <summary>
+                Initializes the context with externally supplied options.  Recommended for
+                production usage where a DI container provides the configured <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions"/>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Data.AppDbContext.#ctor">
+            <summary>
+                Parameter‑less constructor that defers provider selection to
+                <see cref="M:ShawarmaShop.Infrastructure.Data.AppDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)"/>.  Designed mainly for desktop apps and quick tests.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Data.AppDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+                Configures the database provider and connection string if they haven’t been
+                set already (e.g. by <c>optionsBuilder</c> supplied in the constructor).
+            </summary>
+            <param name="optionsBuilder">Fluent builder exposed by EF Core.</param>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Data.AppDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+                Configures entity relationships, property mappings and seeds initial data
+                (demo clients, menu items, orders, etc.).
+            </summary>
+            <param name="modelBuilder">Fluent builder used to construct the model metadata.</param>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Data.AppDbContext.SeedData(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+                Populates the database with a small set of demo data so that a fresh clone
+                of the repository can run immediately without manual data entry.
+            </summary>
+            <param name="modelBuilder">Builder instance from <see cref="M:ShawarmaShop.Infrastructure.Data.AppDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)"/>.</param>
+        </member>
+        <member name="T:ShawarmaShop.Infrastructure.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ShawarmaShop.Infrastructure.Services.OrderItemService">
+            <summary>
+                Small repository‑style service that exposes asynchronous CRUD methods for
+                <see cref="T:ShawarmaShopCore.Models.OrderItem"/> entities. Designed primarily for unit tests and
+                background jobs that manipulate order items outside the WPF UI.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderItemService.#ctor(ShawarmaShop.Infrastructure.Data.AppDbContext)">
+            <summary>
+                Constructs the service with the given EF Core <paramref name="context"/>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderItemService.GetAllAsync">
+            <summary>
+                Retrieves every <see cref="T:ShawarmaShopCore.Models.OrderItem"/> with its related
+                <see cref="T:ShawarmaShopCore.Models.Shawarma"/> in a single round‑trip.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderItemService.AddAsync(ShawarmaShopCore.Models.OrderItem)">
+            <summary>
+                Persists a new <paramref name="item"/> to the database.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderItemService.DeleteAsync(System.Int32)">
+            <summary>
+                Deletes an <see cref="T:ShawarmaShopCore.Models.OrderItem"/> by primary key if it exists.
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.Infrastructure.Services.OrderService">
+            <summary>
+                Provides basic asynchronous CRUD operations for <see cref="T:ShawarmaShopCore.Models.Order"/>
+                entities. Consumers should layer additional validation and business
+                rules on top of this service as needed.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderService.#ctor(ShawarmaShop.Infrastructure.Data.AppDbContext)">
+            <summary>Initialises the service with the supplied context.</summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderService.GetAllAsync">
+            <summary>
+                Returns all orders, eager‑loading their <c>Items</c> collection to
+                avoid the N+1 query problem when enumerating in the caller.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderService.GetByIdAsync(System.Int32)">
+            <summary>
+                Retrieves a single order by id, including its items.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderService.AddAsync(ShawarmaShopCore.Models.Order)">
+            <summary>
+                Persists a new order.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.OrderService.DeleteAsync(System.Int32)">
+            <summary>
+                Deletes an order by id, if it exists.
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.Infrastructure.Services.ShawarmaService">
+            <summary>
+                Service that exposes CRUD operations for <see cref="T:ShawarmaShopCore.Models.Shawarma"/> menu items.
+                All methods are asynchronous and leverage Entity Framework Core.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.ShawarmaService.#ctor(ShawarmaShop.Infrastructure.Data.AppDbContext)">
+            <summary>Creates a new instance bound to the given context.</summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.ShawarmaService.GetAllAsync">
+            <summary>Returns the full menu.</summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.ShawarmaService.GetByIdAsync(System.Int32)">
+            <summary>Finds a single <see cref="T:ShawarmaShopCore.Models.Shawarma"/> by primary key.</summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.ShawarmaService.AddAsync(ShawarmaShopCore.Models.Shawarma)">
+            <summary>Adds a new menu item.</summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.ShawarmaService.UpdateAsync(ShawarmaShopCore.Models.Shawarma)">
+            <summary>Updates an existing menu item.</summary>
+        </member>
+        <member name="M:ShawarmaShop.Infrastructure.Services.ShawarmaService.DeleteAsync(System.Int32)">
+            <summary>Deletes a menu item by id, if found.</summary>
+        </member>
+        <member name="T:ShawarmaShopCore.Services.ClientService">
+            <summary>
+                Concrete implementation of <see cref="T:ShawarmaShopCore.Interfaces.IClientService"/> that performs
+                CRUD operations for <see cref="T:ShawarmaShopCore.Models.Client"/> entities using an
+                <see cref="T:ShawarmaShop.Infrastructure.Data.AppDbContext"/>. No business logic is applied beyond basic
+                persistence; validation is expected to be handled by the caller or by
+                separate validators.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShopCore.Services.ClientService.#ctor(ShawarmaShop.Infrastructure.Data.AppDbContext)">
+            <summary>
+                Creates a new <see cref="T:ShawarmaShopCore.Services.ClientService"/> bound to the supplied
+                <paramref name="context"/>.
+            </summary>
+            <param name="context">An <see cref="T:ShawarmaShop.Infrastructure.Data.AppDbContext"/> instance.</param>
+        </member>
+        <member name="M:ShawarmaShopCore.Services.ClientService.GetAllClients">
+            <inheritdoc/>
+        </member>
+        <member name="M:ShawarmaShopCore.Services.ClientService.GetClientById(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ShawarmaShopCore.Services.ClientService.AddClient(ShawarmaShopCore.Models.Client)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ShawarmaShopCore.Services.ClientService.UpdateClient(ShawarmaShopCore.Models.Client)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ShawarmaShopCore.Services.ClientService.DeleteClient(System.Int32)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

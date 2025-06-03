@@ -1,0 +1,747 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ShawarmaShop</name>
+    </assembly>
+    <members>
+        <member name="T:ShawarmaShop.AddEditClientWindow">
+            <summary>
+            Interaction logic for <c>AddEditClientWindow</c>.
+            Provides UI for creating a new <see cref="P:ShawarmaShop.AddEditClientWindow.Client"/> or editing an existing one.
+            </summary>
+            <summary>
+            AddEditClientWindow
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.AddEditClientWindow.Client">
+            <summary>
+            Gets the <see cref="P:ShawarmaShop.AddEditClientWindow.Client"/> instance being created or edited by the dialog.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.AddEditClientWindow.isEditMode">
+            <summary>
+            Indicates whether the window is opened in edit mode (<see langword="true"/>)
+            or in add‑new mode (<see langword="false"/>).
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.AddEditClientWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ShawarmaShop.AddEditClientWindow"/> class
+            in <em>add‑new</em> mode.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.AddEditClientWindow.#ctor(ShawarmaShopCore.Models.Client)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ShawarmaShop.AddEditClientWindow"/> class
+            in <em>edit</em> mode and pre‑loads UI controls with data from the supplied client.
+            </summary>
+            <param name="existingClient">Client to edit. Must not be <see langword="null"/>.</param>
+        </member>
+        <member name="M:ShawarmaShop.AddEditClientWindow.BtnSave_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Validates user input, updates <see cref="P:ShawarmaShop.AddEditClientWindow.Client"/> properties and closes the dialog
+            with a positive <see cref="P:System.Windows.Window.DialogResult"/> when validation succeeds.
+            </summary>
+            <param name="sender">Event source.</param>
+            <param name="e">Event data.</param>
+        </member>
+        <member name="M:ShawarmaShop.AddEditClientWindow.BtnCancel_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Cancels the operation and closes the dialog, setting
+            <see cref="P:System.Windows.Window.DialogResult"/> to <see langword="false"/>.
+            </summary>
+            <param name="sender">Event source.</param>
+            <param name="e">Event data.</param>
+        </member>
+        <member name="M:ShawarmaShop.AddEditClientWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.AddEditShawarmaWindow">
+            <summary>
+            Interaction logic for <c>AddEditShawarmaWindow</c>.
+            Allows users to add a new <see cref="P:ShawarmaShop.AddEditShawarmaWindow.Shawarma"/> item or edit an existing one.
+            </summary>
+            <summary>
+            AddEditShawarmaWindow
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.AddEditShawarmaWindow.Shawarma">
+            <summary>
+            Gets or sets the <see cref="P:ShawarmaShop.AddEditShawarmaWindow.Shawarma"/> instance being created or edited.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.AddEditShawarmaWindow.#ctor">
+            <summary>
+            Initializes the window in <em>add‑new</em> mode.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.AddEditShawarmaWindow.#ctor(ShawarmaShopCore.Models.Shawarma)">
+            <summary>
+            Initializes the window in <em>edit</em> mode using the provided shawarma.
+            </summary>
+            <param name="shawarma">The shawarma to edit.</param>
+        </member>
+        <member name="M:ShawarmaShop.AddEditShawarmaWindow.LoadShawarmaData">
+            <summary>
+            Loads the existing shawarma data into UI controls.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.AddEditShawarmaWindow.BtnSave_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Attempts to validate user input and, if successful, updates the <see cref="P:ShawarmaShop.AddEditShawarmaWindow.Shawarma"/> instance
+            and closes the dialog with <see langword="true"/>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.AddEditShawarmaWindow.BtnCancel_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Cancels the operation and closes the dialog.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.AddEditShawarmaWindow.ValidateInput">
+            <summary>
+            Validates user input in all fields.
+            </summary>
+            <returns><see langword="true"/> if all input is valid; otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="M:ShawarmaShop.AddEditShawarmaWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.AppStartAction">
+            <summary>
+            Enumerates the initial action the application should perform on startup.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.AppStartAction.Login">
+            <summary>Show the <c>LoginWindow</c>.</summary>
+        </member>
+        <member name="F:ShawarmaShop.AppStartAction.Register">
+            <summary>Show the <c>RegisterWindow</c>.</summary>
+        </member>
+        <member name="T:ShawarmaShop.App">
+            <summary>
+            Application bootstrapper that resolves the first window to display depending on <see cref="T:ShawarmaShop.AppStartAction"/>.
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.App.StartAction">
+            <summary>
+            Gets or sets the startup action that determines which window appears first.
+            Defaults to <see cref="F:ShawarmaShop.AppStartAction.Login"/>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.App.OnStartup(System.Windows.StartupEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ShawarmaShop.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.CartItemControl">
+            <summary>
+            UI control that represents a single item row within the shopping cart.
+            </summary>
+            <summary>
+            CartItemControl
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.CartItemControl.menu">
+            <summary>
+            Cached reference to the full menu used to populate the combo box.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.CartItemControl.digits">
+            <summary>
+            Regular expression used to allow only digits in the quantity textbox.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.CartItemControl.UnitPrice">
+            <summary>
+            Gets the price of the currently selected dish.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.CartItemControl.Quantity">
+            <summary>
+            Gets the quantity entered by the user. Defaults to <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.CartItemControl.SelectedDish">
+            <summary>
+            Gets the dish chosen by the user or <see langword="null"/> if none is selected.
+            </summary>
+        </member>
+        <member name="E:ShawarmaShop.CartItemControl.TotalsChanged">
+            <summary>
+            Raised whenever <see cref="P:ShawarmaShop.CartItemControl.UnitPrice"/> or <see cref="P:ShawarmaShop.CartItemControl.Quantity"/> changes,
+            allowing the parent control to recalculate totals.
+            </summary>
+        </member>
+        <member name="E:ShawarmaShop.CartItemControl.DeleteRequested">
+            <summary>
+            Raised when the user requests deletion of the item (via the delete button).
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.CartItemControl.#ctor(System.Collections.Generic.List{ShawarmaShopCore.Models.Shawarma})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ShawarmaShop.CartItemControl"/> class.
+            </summary>
+            <param name="menu">Collection of available dishes to choose from.</param>
+        </member>
+        <member name="M:ShawarmaShop.CartItemControl.CmbDish_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Handles selection changes in the dish combo box – updates internal state and UI.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.CartItemControl.TxtQty_PreviewTextInput(System.Object,System.Windows.Input.TextCompositionEventArgs)">
+            <summary>
+            Ensures that only digits can be entered in the quantity textbox.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.CartItemControl.TxtQty_TextChanged(System.Object,System.Windows.Controls.TextChangedEventArgs)">
+            <summary>
+            Tracks quantity changes and raises <see cref="E:ShawarmaShop.CartItemControl.TotalsChanged"/> as appropriate.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.CartItemControl.BtnDelete_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Forwards a delete request to any subscribers.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.CartItemControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.ClientsControl">
+            <summary>
+            Interaction logic for <c>ClientsControl</c>.
+            Presents CRUD operations for <see cref="T:ShawarmaShopCore.Models.Client"/> entities.
+            </summary>
+            <summary>
+            ClientsControl
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.ClientsControl._clientService">
+            <summary>
+            Abstraction over client‑related data operations.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.ClientsControl.#ctor(ShawarmaShopCore.Interfaces.IClientService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ShawarmaShop.ClientsControl"/> class.
+            </summary>
+            <param name="clientService">Concrete implementation of <see cref="T:ShawarmaShopCore.Interfaces.IClientService"/>.</param>
+        </member>
+        <member name="M:ShawarmaShop.ClientsControl.LoadClients">
+            <summary>
+            Retrieves all clients from the service and binds them to the <c>DataGrid</c>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.ClientsControl.BtnAdd_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Opens the add‑client dialog and persists the new client when the dialog returns <c>true</c>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.ClientsControl.BtnEdit_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Opens the edit dialog for the currently selected client and saves changes.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.ClientsControl.BtnDelete_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Confirms and removes the currently selected client.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.ClientsControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.LoginWindow">
+            <summary>
+                Authentication window that lets a user log in,
+                register a new account, or close the application.
+            </summary>
+            <summary>
+            LoginWindow
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.LoginWindow.dbContext">
+            <summary>
+                EF Core database context used to fetch users and verify credentials.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.LoginWindow.LoggedInUser">
+            <summary>
+                Gets the user that successfully authenticated
+                (or <see langword="null"/> if the dialog was canceled).
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.LoginWindow.#ctor">
+            <summary>
+                Initializes the login window and its components.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.LoginWindow.BtnLogin_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Validates the entered user name / password and either
+                sets <see cref="P:ShawarmaShop.LoginWindow.LoggedInUser"/> or shows an error message.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.LoginWindow.BtnExit_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>Closes the window and terminates the application if it was the root.</summary>
+        </member>
+        <member name="M:ShawarmaShop.LoginWindow.BtnRegister_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>Opens the registration dialog so a new user can sign up.</summary>
+        </member>
+        <member name="M:ShawarmaShop.LoginWindow.OnClosed(System.EventArgs)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShawarmaShop.LoginWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.MainWindow">
+            <summary>
+                The administrator dashboard.  
+                Provides navigation between menu, clients and orders modules.
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.MainWindow.#ctor">
+            <summary>
+                Creates a new <see cref="T:ShawarmaShop.MainWindow"/> and wires up
+                the three content controls.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.MainWindow.BtnExit_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Logs the current user out and shows the login screen again.
+                When the login completes the correct dashboard is opened
+                based on the user’s role.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.MenuControl">
+            <summary>
+                CRUD UI for <see cref="T:ShawarmaShopCore.Models.Shawarma"/> items that appear on the menu.
+            </summary>
+            <summary>
+            MenuControl
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.MenuControl.#ctor">
+            <summary>Initialises the control and loads the menu from the database.</summary>
+        </member>
+        <member name="M:ShawarmaShop.MenuControl.LoadMenu">
+            <summary>Fetches all shawarmas from the DB and binds them to <c>MenuDataGrid</c>.</summary>
+        </member>
+        <member name="M:ShawarmaShop.MenuControl.BtnAdd_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>Opens the <c>AddEditShawarmaWindow</c> in <em>add</em> mode.</summary>
+        </member>
+        <member name="M:ShawarmaShop.MenuControl.BtnEdit_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>Edits the selected <see cref="T:ShawarmaShopCore.Models.Shawarma"/> record.</summary>
+        </member>
+        <member name="M:ShawarmaShop.MenuControl.BtnDelete_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>Deletes the selected <see cref="T:ShawarmaShopCore.Models.Shawarma"/> from the database.</summary>
+        </member>
+        <member name="M:ShawarmaShop.MenuControl.MenuControl_Unloaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>Disposes the EF Core context when the control is unloaded.</summary>
+        </member>
+        <member name="M:ShawarmaShop.MenuControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.OrdersControl">
+            <summary>
+                Interaction logic for <c>OrdersControl</c>.
+                Provides a grid view for listing, creating, editing, and deleting orders.
+                Data is fetched from the underlying <see cref="T:ShawarmaShop.Infrastructure.Data.AppDbContext"/> and projected
+                into a lightweight <see cref="T:ShawarmaShop.OrdersControl.OrderRow"/> for display.
+            </summary>
+            <summary>
+            OrdersControl
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrdersControl.#ctor">
+            <summary>
+                Initialises a new instance of the <see cref="T:ShawarmaShop.OrdersControl"/> class and
+                immediately populates the data grid with the most recent orders.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrdersControl.LoadOrders">
+            <summary>
+                Retrieves orders from the database, eagerly loads related client and item
+                navigation properties, and binds a projected <see cref="T:ShawarmaShop.OrdersControl.OrderRow"/> list
+                to <c>OrdersDataGrid</c>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrdersControl.BtnAdd_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Opens an <see cref="T:ShawarmaShop.OrderWindow"/> in *add* mode.  When the modal dialog closes
+                with <c>true</c>, the order list is refreshed.
+            </summary>
+            <param name="sender">Button that raised the event.</param>
+            <param name="e">Routed event data.</param>
+        </member>
+        <member name="M:ShawarmaShop.OrdersControl.BtnEdit_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Edits the currently selected order.  Displays a warning if no row is
+                selected or the order cannot be found in the database.
+            </summary>
+            <param name="sender">Button that raised the event.</param>
+            <param name="e">Routed event data.</param>
+        </member>
+        <member name="M:ShawarmaShop.OrdersControl.BtnDelete_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Deletes the selected order after user confirmation.  Associated
+                <see cref="T:ShawarmaShopCore.Models.OrderItem"/> entities are removed first to satisfy the FK constraint.
+            </summary>
+            <param name="sender">Button that raised the event.</param>
+            <param name="e">Routed event data.</param>
+        </member>
+        <member name="T:ShawarmaShop.OrdersControl.OrderRow">
+            <summary>
+                Lightweight projection used solely for display purposes within
+                <see cref="F:ShawarmaShop.OrdersControl.OrdersDataGrid"/>.  Keeps the UI decoupled from the full
+                <see cref="T:ShawarmaShopCore.Models.Order"/> domain entity.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.OrdersControl.OrderRow.Id">
+            <summary>Gets the primary key of the order.</summary>
+        </member>
+        <member name="P:ShawarmaShop.OrdersControl.OrderRow.ClientName">
+            <summary>Gets the customer’s display name.</summary>
+        </member>
+        <member name="P:ShawarmaShop.OrdersControl.OrderRow.Placed">
+            <summary>Gets the timestamp when the order was placed.</summary>
+        </member>
+        <member name="P:ShawarmaShop.OrdersControl.OrderRow.Ready">
+            <summary>Gets the scheduled delivery time.</summary>
+        </member>
+        <member name="P:ShawarmaShop.OrdersControl.OrderRow.ItemsSummary">
+            <summary>Gets a concatenated summary like "Classic x2, Spicy x1".</summary>
+        </member>
+        <member name="P:ShawarmaShop.OrdersControl.OrderRow.Comment">
+            <summary>Gets the optional comment left by the client.</summary>
+        </member>
+        <member name="M:ShawarmaShop.OrdersControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.OrderWindow">
+            <summary>
+                Modal window that allows an operator to create a new <see cref="T:ShawarmaShopCore.Models.Order"/>
+                or edit an existing one. Implements <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> so
+                that UI elements (e.g. the total amount) stay in sync when the underlying
+                data changes.
+            </summary>
+            <summary>
+            OrderWindow
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.OrderWindow.dbContext">
+            <summary>
+                Shared EF Core database context. Its lifetime is scoped to that of the
+                window and is disposed implicitly when the process exits, so we keep the
+                field <c>readonly</c> and do not implement <see cref="T:System.IDisposable"/>.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.OrderWindow.isEditMode">
+            <summary>
+                Indicates whether the window is in <em>edit</em> mode (<see langword="true"/>)
+                or <em>create</em> mode (<see langword="false"/>). This affects how the order
+                is persisted when the user clicks <c>Save</c>.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.OrderWindow.order">
+            <summary>
+                The <see cref="T:ShawarmaShopCore.Models.Order"/> entity being edited or created by this window.
+                In <em>create</em> mode this is a freshly‑constructed instance; in
+                <em>edit</em> mode it is loaded from the database together with its
+                navigation properties.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.OrderWindow.shawarmaItems">
+            <summary>
+                Collection of <see cref="T:ShawarmaShop.OrderWindow.ShawarmaItemViewModel"/>s that wrap the full list
+                of available <see cref="T:ShawarmaShopCore.Models.Shawarma"/>s. Bound to the grid so the user can
+                pick items and quantities. Implements change notification so that totals
+                recalculate on the fly.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.#ctor">
+            <summary>
+                Initializes a new instance of <see cref="T:ShawarmaShop.OrderWindow"/> for creating a
+                brand‑new order.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.#ctor(ShawarmaShopCore.Models.Order)">
+            <summary>
+                Initializes a new instance of <see cref="T:ShawarmaShop.OrderWindow"/> for editing the
+                specified existing <paramref name="existingOrder"/>.
+            </summary>
+            <param name="existingOrder">Order instance to edit. Must already exist in the DB.</param>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.InitData">
+            <summary>
+                Populates combo‑boxes and grids with data from the database, sets sensible
+                defaults (today’s date, current time) and pre‑wires event handlers so that
+                totals recalculate whenever the user tweaks item selections or quantities.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.LoadOrder">
+            <summary>
+                Loads the fields of <see cref="F:ShawarmaShop.OrderWindow.order"/> into the UI so the operator can
+                edit them. Only called in <em>edit</em> mode.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.CmbClients_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+                Updates the read‑only phone and e‑mail text‑blocks when a client is picked
+                from the combo‑box.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.RecalcTotal">
+            <summary>
+                Recalculates <c>TxtTotal</c> whenever the item list changes.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.BtnSave_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Validates user input, persists the order to the database and closes the
+                dialog with <see cref="P:System.Windows.Window.DialogResult"/> = <c>true</c> if everything is
+                OK. Displays message boxes for validation errors.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.BtnCancel_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Closes the dialog without saving changes.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.Validate">
+            <summary>
+                Performs basic data‑entry validation and shows message boxes for failures.
+            </summary>
+            <returns><see langword="true"/> if everything looks good; otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="E:ShawarmaShop.OrderWindow.PropertyChanged">
+            <inheritdoc/>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.OnPropertyChanged(System.String)">
+            <summary>
+                Raises <see cref="E:ShawarmaShop.OrderWindow.PropertyChanged"/>. Use <c>[CallerMemberName]</c> so the
+                caller does not need to pass a property name.
+            </summary>
+            <param name="p">Caller‑supplied property name (automatically filled).</param>
+        </member>
+        <member name="T:ShawarmaShop.OrderWindow.ShawarmaItemViewModel">
+            <summary>
+                Lightweight wrapper around <see cref="T:ShawarmaShopCore.Models.Shawarma"/> so we can add view‑specific
+                state (<see cref="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.IsSelected"/>, <see cref="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.Quantity"/>) and raise
+                <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> events for the UI.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.Id">
+            <summary>Primary key of the wrapped <see cref="T:ShawarmaShopCore.Models.Shawarma"/>.</summary>
+        </member>
+        <member name="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.Name">
+            <summary>Name of the shawarma.</summary>
+        </member>
+        <member name="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.Price">
+            <summary>Price per single unit.</summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.#ctor(ShawarmaShopCore.Models.Shawarma)">
+            <summary>
+                Creates a new view‑model from the supplied <paramref name="s"/>.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.IsSelected">
+            <summary>
+                Gets or sets whether the item is included in the order.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.Quantity">
+            <summary>
+                Gets or sets the quantity (must be &gt; 0). Setting <c>0</c> or a negative
+                value is ignored.
+            </summary>
+        </member>
+        <member name="P:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.Subtotal">
+            <summary>
+                Gets the subtotal (<c>Price × Quantity</c>) if the item is selected;
+                otherwise <c>0</c>.
+            </summary>
+        </member>
+        <member name="E:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.PropertyChanged">
+            <inheritdoc/>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.OnChanged(System.String)">
+            <summary>Raises <see cref="E:ShawarmaShop.OrderWindow.ShawarmaItemViewModel.PropertyChanged"/>.</summary>
+        </member>
+        <member name="M:ShawarmaShop.OrderWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.RegisterWindow">
+            <summary>
+                Interaction logic for <c>RegisterWindow</c>.
+                Presents a simple form that allows a new user to sign up by providing
+                a username, password, phone number and e‑mail address. Basic client‑side
+                validation is performed before persisting the new <see cref="T:Authentication.User"/> to
+                the underlying SQLite database.
+            </summary>
+            <summary>
+            RegisterWindow
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.RegisterWindow.dbContext">
+            <summary>
+                EF Core database context. Lifetime is bound to the window and it is
+                disposed in <see cref="M:ShawarmaShop.RegisterWindow.OnClosed(System.EventArgs)"/>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.RegisterWindow.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:ShawarmaShop.RegisterWindow"/> class and
+                loads its XAML components.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.RegisterWindow.BtnRegister_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Validates form fields and, if successful, creates a new <see cref="T:Authentication.User"/>
+                entity, saves it to the database and redirects the user back to the login
+                window.
+            </summary>
+            <param name="sender">Button that initiated the action.</param>
+            <param name="e">Event‑args (unused).</param>
+        </member>
+        <member name="M:ShawarmaShop.RegisterWindow.BtnCancel_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Cancels the registration workflow and closes the window without saving
+                any changes.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.RegisterWindow.BtnBack_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Returns to the login screen without registering a new account. Unlike
+                <see cref="M:ShawarmaShop.RegisterWindow.BtnCancel_Click(System.Object,System.Windows.RoutedEventArgs)"/>, this keeps the application running and
+                simply hides the current dialog.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.RegisterWindow.OnClosed(System.EventArgs)">
+            <summary>
+                Releases unmanaged resources and disposes the EF Core context when the
+                window is closed.
+            </summary>
+            <param name="e">Event‑args supplied by WPF.</param>
+        </member>
+        <member name="M:ShawarmaShop.RegisterWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.Themes">
+            <summary>
+            Interaction logic for Themes.xaml
+            </summary>
+        </member>
+        <member name="T:ShawarmaShop.UserPanelWindow">
+            <summary>
+                Interaction logic for <c>UserPanelWindow</c>.
+                Provides an ordering interface for regular (non‑admin) users where they can:
+                <list type="bullet">
+                    <item><description>Add one or more <see cref="T:ShawarmaShopCore.Models.Shawarma"/> items to a cart.</description></item>
+                    <item><description>Select a preferred delivery time (15‑minute granularity).</description></item>
+                    <item><description>Place the order, which creates the necessary <see cref="T:ShawarmaShopCore.Models.Order"/> &amp; <see cref="T:ShawarmaShopCore.Models.OrderItem"/> records.</description></item>
+                </list>
+                The window also supports logging out and returning to the <see cref="T:ShawarmaShop.LoginWindow"/>.
+            </summary>
+            <summary>
+            UserPanelWindow
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.UserPanelWindow.dbContext">
+            <summary>
+                EF Core database context. Disposed when the window closes.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.UserPanelWindow.menu">
+            <summary>
+                Cached list of all available dishes on the menu.
+            </summary>
+        </member>
+        <member name="F:ShawarmaShop.UserPanelWindow.currentUser">
+            <summary>
+                Reference to the authenticated user that launched this window.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.#ctor(Authentication.User)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ShawarmaShop.UserPanelWindow"/> class for the specified <paramref name="currentUser"/>.
+                Loads the full shawarma menu from the database, builds the delivery‑time combo‑box and sets the initial total.
+            </summary>
+            <param name="currentUser">Currently authenticated user (non‑admin).</param>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.FillTimeCombo">
+            <summary>
+                Populates the delivery‑time combo‑box (<c>cmbOrderTime</c>) with 15‑minute slots
+                starting 30 minutes from <see cref="P:System.DateTime.Now"/> and spanning the next 12 hours (48 slots).
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.BtnAdd_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Adds a new <c>CartItemControl</c> to the cart panel and wires up callbacks to
+                keep the running total accurate.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.UpdateTotal">
+            <summary>
+                Computes the total cart value and shows it in <c>txtTotal</c>.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.BtnSave_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Persists the order and associated <see cref="T:ShawarmaShopCore.Models.OrderItem"/> rows after performing validation.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.BtnExit_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+                Logs the current user out by showing the <see cref="T:ShawarmaShop.LoginWindow"/> again.
+                Once a new user logs in, the correct dashboard (admin or user) is opened.
+            </summary>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.OnClosed(System.EventArgs)">
+            <summary>
+                Disposes the EF Core context when the window is closed.
+            </summary>
+            <param name="e">Event args supplied by WPF.</param>
+        </member>
+        <member name="M:ShawarmaShop.UserPanelWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>
